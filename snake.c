@@ -32,8 +32,8 @@ unsigned short graphicDecode(char input);
 void draw(char** playspace, unsigned char* parlcd_mem_base);
 
 
-int main(int argc, char *argv[])
-{
+
+int main(int argc, char *argv[]) {
 
   /* Serialize execution of applications */
 
