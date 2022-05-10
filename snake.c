@@ -70,17 +70,32 @@ int main(int argc, char *argv[])
     exit(1);
     
   }
-
-
-  //Intitalise the LCD display
+  //Initialise knob values
+  unsigned int knob_values = *(volatile uint32_t*)(mem_base + SPILED_REG_KNOBS_8BIT_o);
+  unsigned int red_knob = (knob_values>>16) & 0xFF;
+  //Initialise the LCD display
   parlcd_hx8357_init(parlcd_mem_base);
 
   draw(playspace, parlcd_mem_base);
   
   exit(1);
+  char current_direction;
+
   while (1)
   {
+    current_direction = playspace[head_one.x][head_one.y];
+    unsigned int new_knob_values = *(volatile uint32_t*)(mem_base + SPILED_REG_KNOBS_8BIT_o);
+    unsigned int new_red_knob = (new_knob_values>>16) & 0xFF;
+    if (abs(red_knob - new_red_knob) > 3) {
+      if (red_knob < new_knob_values) {
+        current_direction++;
+      } else {
+        current_direction--;
+      }
+    }
+
     
+
   }
   
 
