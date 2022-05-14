@@ -59,6 +59,9 @@ int main(int argc, char *argv[]) {
   for (int i = 0; i < 5; i++) {
     playspace[head_one.x][head_one.y+i] = LEFT;
   }
+  struct timespec clock_spec;
+  clock_spec.tv_sec = 0;
+  clock_spec.tv_nsec = 100 * 1000000;
   
 
   //mapping
@@ -94,8 +97,8 @@ int main(int argc, char *argv[]) {
       }
     }
 
-    
-
+    draw(playspace, parlcd_mem_base);
+    clock_nanosleep(CLOCK_MONOTONIC, 0, &clock_spec, NULL);
   }
   
 

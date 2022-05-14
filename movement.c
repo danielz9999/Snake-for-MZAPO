@@ -5,7 +5,7 @@
 enum Directions {UP=1, RIGHT=2, DOWN=3, LEFT=4};
 enum MovementVariables {FRUIT = 10, HEAD = 6};
 
-boolean movement(char** playSpace, unsigned char* parlcd_mem_base, struct snake_head *snakeHead,
+bool movement(char** playSpace, unsigned char* parlcd_mem_base, snake_head *snakeHead,
         struct snake_head *snakeTail, int direction) {
     //move the head
     playSpace[snakeHead->x][snakeHead->y] = direction;
