@@ -32,8 +32,9 @@ enum Directions {UP=1, RIGHT=2, DOWN=3, LEFT=4};
 unsigned short graphicDecode(char input);
 void draw(char** playspace, unsigned char* parlcd_mem_base);
 void fruit_get(int* score, unsigned char* mem_base, struct timespec* clock);
+void game_over(unsigned char* mem_base, struct timespec* clock);
 
-
+#define FRUIT = 10
 
 int main(int argc, char *argv[]) {
 
@@ -53,6 +54,7 @@ int main(int argc, char *argv[]) {
   //Initializing variables
   int score_counter = 1;
   bool has_fruit_been_eaten;
+  bool is_game_over = false;
 
   snake_head head_one;
   head_one.x = 240;
@@ -62,9 +64,9 @@ int main(int argc, char *argv[]) {
   tail_one.x = 240;
   tail_one.x = 164;
 
-  unsigned char** playspace = calloc(320, sizeof(char*));
-  for (int i = 0; i < 320; i++) {
-    playspace[i] = calloc(480, sizeof(char));
+  unsigned char** playspace = calloc(480, sizeof(char*));
+  for (int i = 0; i < 480; i++) {
+    playspace[i] = calloc(320, sizeof(char));
   }
   for (int i = 0; i < 5; i++) {
     playspace[head_one.x][head_one.y+i] = LEFT;
@@ -107,8 +109,13 @@ int main(int argc, char *argv[]) {
         current_direction--;
       }
     }
+    red_knob = new_red_knob;
 
-    has_fruit_been_eaten = movement(playspace, parlcd_mem_base, &head_one, &tail_one, current_direction);
+
+    is_game_over = movement(playspace, &has_fruit_been_eaten, &head_one, &tail_one, current_direction);
+    if (is_game_over) {
+      game_over(mem_base, &clock_spec);
+    }
     if (has_fruit_been_eaten) {
       fruit_get(&score_counter, mem_base, &clock_spec);
     }
@@ -129,6 +136,8 @@ int main(int argc, char *argv[]) {
 
   return 0;
 }
+
+
 //Triggers when a snake eats a fruit
 void fruit_get(int* score, unsigned char* mem_base, struct timespec* clock) {
   //If score reached max, celebrate, then reset score
@@ -166,10 +175,18 @@ unsigned short graphicDecode(char input) {
 //Displays the current state of the game to the LCD display
 void draw(char** playspace, unsigned char* parlcd_mem_base) {
   *(volatile uint16_t*)(parlcd_mem_base + PARLCD_REG_CMD_o) = 0x2c;
-  for (int i = 0; i < 320; i++) {
-    for (int j = 0; j < 480; j++) {
+  for (int i = 0; i < 480; i++) {
+    for (int j = 0; j < 320; j++) {
         *(volatile uint16_t*)(parlcd_mem_base + PARLCD_REG_DATA_o) = graphicDecode(playspace[i][j]);
     }
   }
   //*
+}
+void game_over(unsigned char* mem_base, struct timespec* clock) {
+    *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB1_o) = 0x0000FF00;
+    *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB2_o) = 0x0000FF00;
+
+    *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = 0xFFFFFFFF;
+    clock->tv_nsec = 3000 * 1000 * 1000;
+    exit(1);
 }
