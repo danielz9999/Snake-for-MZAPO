@@ -26,10 +26,12 @@
 #include "mzapo_regs.h"
 #include "serialize_lock.h"
 #include "snake_head.h"
+#include "movement.c"
 
 enum Directions {UP=1, RIGHT=2, DOWN=3, LEFT=4};
 unsigned short graphicDecode(char input);
 void draw(char** playspace, unsigned char* parlcd_mem_base);
+void fruit_get(int* score, unsigned char* mem_base, struct timespec* clock);
 
 
 
@@ -49,9 +51,17 @@ int main(int argc, char *argv[]) {
   }
 
   //Initializing variables
+  int score_counter = 1;
+  bool has_fruit_been_eaten;
+
   snake_head head_one;
   head_one.x = 240;
   head_one.y = 160;
+
+  snake_head tail_one;
+  tail_one.x = 240;
+  tail_one.x = 164;
+
   unsigned char** playspace = calloc(320, sizeof(char*));
   for (int i = 0; i < 320; i++) {
     playspace[i] = calloc(480, sizeof(char));
@@ -59,6 +69,7 @@ int main(int argc, char *argv[]) {
   for (int i = 0; i < 5; i++) {
     playspace[head_one.x][head_one.y+i] = LEFT;
   }
+
   struct timespec clock_spec;
   clock_spec.tv_sec = 0;
   clock_spec.tv_nsec = 100 * 1000000;
@@ -83,7 +94,7 @@ int main(int argc, char *argv[]) {
   
   exit(1);
   char current_direction;
-
+  //Main game loop
   while (1)
   {
     current_direction = playspace[head_one.x][head_one.y];
@@ -97,8 +108,19 @@ int main(int argc, char *argv[]) {
       }
     }
 
+    has_fruit_been_eaten = movement(playspace, parlcd_mem_base, &head_one, &tail_one, current_direction);
+    if (has_fruit_been_eaten) {
+      fruit_get(&score_counter, mem_base, &clock_spec);
+    }
+
+    //display changes
     draw(playspace, parlcd_mem_base);
+
+    //pause before next cycle
     clock_nanosleep(CLOCK_MONOTONIC, 0, &clock_spec, NULL);
+    //Resets RGB lights
+    *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB1_o) = 0x00000000;
+    *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB2_o) = 0x00000000; 
   }
   
 
@@ -106,6 +128,29 @@ int main(int argc, char *argv[]) {
   serialize_unlock();
 
   return 0;
+}
+//Triggers when a snake eats a fruit
+void fruit_get(int* score, unsigned char* mem_base, struct timespec* clock) {
+  //If score reached max, celebrate, then reset score
+  if (*(score) >= 0xFFFFFFFF) {
+    *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB1_o) = 0x00FFFF00;
+    *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB2_o) = 0x00FFFF00; 
+
+    for (int i = 0; i < 100; i++) {
+      *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = 0xAAAAAAAA;
+      clock_nanosleep(CLOCK_MONOTONIC, 0 , clock, NULL);
+      *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = 0x55555555;
+      clock_nanosleep(CLOCK_MONOTONIC, 0 , clock, NULL);
+    }
+    *(score) = 1;
+  } else {
+    *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = *(score);
+    int temp = *(score);
+    *(score)<<=1;
+    *(score) += temp;
+    *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB1_o) = 0x0000FF00;
+    *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB2_o) = 0x0000FF00; 
+    }
 }
 //Decodes the logic in the playspace array into values which can be passed to the LCD display
 unsigned short graphicDecode(char input) {
@@ -118,6 +163,7 @@ unsigned short graphicDecode(char input) {
   }
   
 }
+//Displays the current state of the game to the LCD display
 void draw(char** playspace, unsigned char* parlcd_mem_base) {
   *(volatile uint16_t*)(parlcd_mem_base + PARLCD_REG_CMD_o) = 0x2c;
   for (int i = 0; i < 320; i++) {
