@@ -173,14 +173,15 @@ unsigned short graphicDecode(char input) {
   
 }
 //Displays the current state of the game to the LCD display
+//Loops through x coordinate first, since
 void draw(char** playspace, unsigned char* parlcd_mem_base) {
   *(volatile uint16_t*)(parlcd_mem_base + PARLCD_REG_CMD_o) = 0x2c;
-  for (int i = 0; i < 480; i++) {
-    for (int j = 0; j < 320; j++) {
+   for (int i = 0; i < 320; i++) {
+    for (int j = 0; j < 480; j++) {
         *(volatile uint16_t*)(parlcd_mem_base + PARLCD_REG_DATA_o) = graphicDecode(playspace[i][j]);
     }
   }
-  //*
+  
 }
 void game_over(unsigned char* mem_base, struct timespec* clock) {
     *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB1_o) = 0x0000FF00;
