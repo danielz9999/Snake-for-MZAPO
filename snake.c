@@ -27,6 +27,9 @@
 #include "serialize_lock.h"
 #include "snake_head.h"
 #include "movement.c"
+#include "mainmenu.c"
+
+#define FRUIT 10
 
 enum Directions {UP=1, RIGHT=2, DOWN=3, LEFT=4};
 unsigned short graphicDecode(char input);
@@ -34,7 +37,7 @@ void draw(char** playspace, unsigned char* parlcd_mem_base);
 void fruit_get(int* score, unsigned char* mem_base, struct timespec* clock);
 void game_over(unsigned char* mem_base, struct timespec* clock);
 
-#define FRUIT = 10
+
 
 int main(int argc, char *argv[]) {
 
@@ -64,17 +67,24 @@ int main(int argc, char *argv[]) {
   tail_one.x = 240;
   tail_one.x = 164;
 
+  snake_head fruit_coordinates;
+  fruit_coordinates.x = rand() % (480 - 1);
+  fruit_coordinates.y = rand() % (320 - 1);
+
   unsigned char** playspace = calloc(480, sizeof(char*));
   for (int i = 0; i < 480; i++) {
     playspace[i] = calloc(320, sizeof(char));
   }
+
+  //Initial assiging to the logic board
   for (int i = 0; i < 5; i++) {
     playspace[head_one.x][head_one.y+i] = LEFT;
   }
+  playspace[fruit_coordinates.x][fruit_coordinates.y] = FRUIT;
 
   struct timespec clock_spec;
   clock_spec.tv_sec = 0;
-  clock_spec.tv_nsec = 100 * 1000000;
+  clock_spec.tv_nsec = 150 * 1000000;
   
 
   //mapping
@@ -94,7 +104,14 @@ int main(int argc, char *argv[]) {
 
   draw(playspace, parlcd_mem_base);
   
+
+  bool two_players = mainmenu(mem_base, parlcd_mem_base);
+
   exit(1);
+
+
+
+
   char current_direction;
   //Main game loop
   while (1)
@@ -128,6 +145,8 @@ int main(int argc, char *argv[]) {
     //Resets RGB lights
     *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB1_o) = 0x00000000;
     *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB2_o) = 0x00000000; 
+    //The game progessively gets faster
+    timerDecrement(&clock_spec);
   }
   
 
@@ -163,9 +182,9 @@ void fruit_get(int* score, unsigned char* mem_base, struct timespec* clock) {
 }
 //Decodes the logic in the playspace array into values which can be passed to the LCD display
 unsigned short graphicDecode(char input) {
-  if (input > 0 && input < 10) {
+  if (input > 0 && input < FRUIT) {
     return 0xFFFF;
-  } else if (input == 10) {
+  } else if (input == FRUIT) {
     return 0xF800;
   } else {
     return 0x0;
@@ -190,4 +209,7 @@ void game_over(unsigned char* mem_base, struct timespec* clock) {
     *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = 0xFFFFFFFF;
     clock->tv_nsec = 3000 * 1000 * 1000;
     exit(1);
+}
+void timerDecrement(struct timespec* clock) {
+  clock->tv_nsec = clock->tv_nsec - 3000;
 }
