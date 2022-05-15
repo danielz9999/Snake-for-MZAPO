@@ -1,8 +1,10 @@
 #include <stdio.h>
 #include <stdbool.h>
+#include <stdlib.h>
 
 #include "drawing.h"
 #include "mzapo_regs.h"
+#include "mainmenu.h"
 
 
 
@@ -43,7 +45,6 @@ void draw_first_screen(unsigned char* parlcd_mem_base) {
     //Draw "PLAYERS?" to the buffer
     int height = 50;
     int pixel_scale = 6;
-    int gap = 6;
     int start_y = 14;
     int start_x = 132;
 

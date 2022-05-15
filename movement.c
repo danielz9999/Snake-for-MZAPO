@@ -6,7 +6,7 @@ enum Directions {UP=1, RIGHT=2, DOWN=3, LEFT=4};
 enum MovementVariables {FRUIT = 10, HEAD = 6};
 
 //Moves snake along the playspace, return value determines whether a fruit has been eaten or not
-bool movement(char** playSpace, bool* has_fruit_been_eaten, snake_head *snakeHead,
+bool movement(unsigned char** playSpace, bool* has_fruit_been_eaten, snake_head *snakeHead,
         snake_head *snakeTail, int direction) {
             
         

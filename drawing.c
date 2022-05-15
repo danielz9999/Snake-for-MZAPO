@@ -1,7 +1,7 @@
 #include "drawing.h"
 
-void draw_square(int x, int y, int scale, unsigned short** buffer, int color) {
-    int color = 0xFFFF;
+void draw_square(int x, int y, int scale, unsigned short** buffer, unsigned short color) {
+    color = 0xFFFF;
     if (color == 1) {
         color = 0xF800;
     } else if (color == 2) {
@@ -15,7 +15,7 @@ void draw_square(int x, int y, int scale, unsigned short** buffer, int color) {
         }
     }
 }
-void draw_vert_line(int start_x, int start_y, int length, int scale, unsigned short** buffer, int color) {
+void draw_vert_line(int start_x, int start_y, int length, int scale, unsigned short** buffer, unsigned short color) {
     int repeats = length / scale;
 
     for (int i = 0; i < repeats; i += scale) {
@@ -25,7 +25,7 @@ void draw_vert_line(int start_x, int start_y, int length, int scale, unsigned sh
     draw_square(start_x, last_square_y, scale, buffer, color);
 
 }
-void draw_horziontal_line(int start_x, int start_y, int length, int scale, unsigned short** buffer, int color) {
+void draw_horziontal_line(int start_x, int start_y, int length, int scale, unsigned short** buffer, unsigned short color) {
     int repeats = length / scale;
 
     for (int i = 0; i < repeats; i += scale) {

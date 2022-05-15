@@ -20,24 +20,25 @@
 #include <stdint.h>
 #include <time.h>
 #include <unistd.h>
+#include <math.h>
 
 #include "mzapo_parlcd.h"
 #include "mzapo_phys.h"
 #include "mzapo_regs.h"
 #include "serialize_lock.h"
 #include "snake_head.h"
-#include "movement.c"
-#include "mainmenu.c"
-#include "fruit_generation.c"
+#include "movement.h"
+#include "mainmenu.h"
+#include "fruit_generation.h"
 
 #define FRUIT 10
 
-enum Directions {UP=1, RIGHT=2, DOWN=3, LEFT=4};
+//enum Directions {UP=1, RIGHT=2, DOWN=3, LEFT=4};
 unsigned short graphicDecode(char input);
-void draw(char** playspace, unsigned char* parlcd_mem_base);
+void draw(unsigned char** playspace, unsigned char* parlcd_mem_base);
 void fruit_get(int* score, unsigned char* mem_base, struct timespec* clock);
 void game_over(unsigned char* mem_base, struct timespec* clock);
-
+void timerDecrement(struct timespec* clock);
 
 
 int main(int argc, char *argv[]) {
@@ -107,8 +108,10 @@ int main(int argc, char *argv[]) {
   
 
   bool two_players = mainmenu(mem_base, parlcd_mem_base);
+  if (two_players) {
+      exit(1);
+  }
 
-  exit(1);
 
 
 
@@ -149,7 +152,6 @@ int main(int argc, char *argv[]) {
     *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB2_o) = 0x00000000; 
 
   }
-  
 
   /* Release the lock */
   serialize_unlock();
@@ -157,11 +159,10 @@ int main(int argc, char *argv[]) {
   return 0;
 }
 
-
 //Triggers when a snake eats a fruit
 void fruit_get(int* score, unsigned char* mem_base, struct timespec* clock) {
   //The game progessively gets faster when fruit is picked up
-  timerDecrement(&clock);
+  timerDecrement(clock);
 
   //If score reached max, celebrate, then reset score
   if (*(score) >= 0xFFFFFFFF) {
@@ -197,7 +198,7 @@ unsigned short graphicDecode(char input) {
 }
 //Displays the current state of the game to the LCD display
 //Loops through x coordinate first, since
-void draw(char** playspace, unsigned char* parlcd_mem_base) {
+void draw(unsigned char** playspace, unsigned char* parlcd_mem_base) {
   *(volatile uint16_t*)(parlcd_mem_base + PARLCD_REG_CMD_o) = 0x2c;
    for (int i = 0; i < 320; i++) {
     for (int j = 0; j < 480; j++) {
@@ -211,7 +212,10 @@ void game_over(unsigned char* mem_base, struct timespec* clock) {
     *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB2_o) = 0x0000FF00;
 
     *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = 0xFFFFFFFF;
-    clock->tv_nsec = 3000 * 1000 * 1000;
+    clock->tv_nsec = 300 * 1000 * 1000;
+    for (int i = 0; i < 10; i++) {
+      clock_nanosleep(CLOCK_MONOTONIC, 0, clock, NULL);
+    }
     exit(1);
 }
 void timerDecrement(struct timespec* clock) {

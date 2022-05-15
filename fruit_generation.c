@@ -14,7 +14,7 @@
 #include <math.h>
 
 // guarantee that fruit will not spawn inside of snake is not implemented - depending on snake representation
-void generate_fruit(unsigned char *frame_buffer[480][320], int* last_fruit_x_coord, int* last_fruit_y_coord) {
+void generate_fruit(unsigned char **frame_buffer, int* last_fruit_x_coord, int* last_fruit_y_coord) {
     // variables
     int width = 480;
     int height = 320;
