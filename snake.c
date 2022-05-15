@@ -28,6 +28,7 @@
 #include "snake_head.h"
 #include "movement.c"
 #include "mainmenu.c"
+#include "fruit_generation.c"
 
 #define FRUIT 10
 
@@ -135,6 +136,7 @@ int main(int argc, char *argv[]) {
     }
     if (has_fruit_been_eaten) {
       fruit_get(&score_counter, mem_base, &clock_spec);
+      generate_fruit(playspace, &fruit_coordinates.x, &fruit_coordinates.y);
     }
 
     //display changes
@@ -145,8 +147,7 @@ int main(int argc, char *argv[]) {
     //Resets RGB lights
     *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB1_o) = 0x00000000;
     *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB2_o) = 0x00000000; 
-    //The game progessively gets faster
-    timerDecrement(&clock_spec);
+
   }
   
 
@@ -159,6 +160,9 @@ int main(int argc, char *argv[]) {
 
 //Triggers when a snake eats a fruit
 void fruit_get(int* score, unsigned char* mem_base, struct timespec* clock) {
+  //The game progessively gets faster when fruit is picked up
+  timerDecrement(&clock);
+
   //If score reached max, celebrate, then reset score
   if (*(score) >= 0xFFFFFFFF) {
     *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB1_o) = 0x00FFFF00;
