@@ -67,7 +67,7 @@ int main(int argc, char *argv[]) {
 
   snake_head tail_one;
   tail_one.x = 240;
-  tail_one.x = 164;
+  tail_one.y = 164;
 
   snake_head fruit_coordinates;
   fruit_coordinates.x = rand() % (480 - 1);
@@ -80,13 +80,13 @@ int main(int argc, char *argv[]) {
 
   //Initial assiging to the logic board
   for (int i = 0; i < 5; i++) {
-    playspace[head_one.x][head_one.y+i] = LEFT;
+    playspace[head_one.x][head_one.y+i] = UP;
   }
   playspace[fruit_coordinates.x][fruit_coordinates.y] = FRUIT;
 
   struct timespec clock_spec;
   clock_spec.tv_sec = 0;
-  clock_spec.tv_nsec = 150 * 1000000;
+  clock_spec.tv_nsec = 1500 * 1000000;
   
 
   //mapping
@@ -123,11 +123,17 @@ int main(int argc, char *argv[]) {
     current_direction = playspace[head_one.x][head_one.y];
     unsigned int new_knob_values = *(volatile uint32_t*)(mem_base + SPILED_REG_KNOBS_8BIT_o);
     unsigned int new_red_knob = (new_knob_values>>16) & 0xFF;
-    if (abs(red_knob - new_red_knob) > 3) {
-      if (red_knob < new_knob_values) {
+    if (abs(red_knob - new_red_knob) > 1) {
+      if (red_knob > new_knob_values) {
         current_direction++;
+        if (current_direction > 4) {
+        current_direction = 1;
+        }
       } else {
         current_direction--;
+        if (current_direction < 1) {
+        current_direction = 4;
+        }
       }
     }
     red_knob = new_red_knob;
@@ -187,7 +193,7 @@ void fruit_get(int* score, unsigned char* mem_base, struct timespec* clock) {
 }
 //Decodes the logic in the playspace array into values which can be passed to the LCD display
 unsigned short graphicDecode(char input) {
-  if (input > 0 && input < FRUIT) {
+  if (input > 0 && input != FRUIT) {
     return 0xFFFF;
   } else if (input == FRUIT) {
     return 0xF800;
@@ -208,16 +214,18 @@ void draw(unsigned char** playspace, unsigned char* parlcd_mem_base) {
   
 }
 void game_over(unsigned char* mem_base, struct timespec* clock) {
-    *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB1_o) = 0x0000FF00;
-    *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB2_o) = 0x0000FF00;
+    *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB1_o) = 0x00FF0000;
+    *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB2_o) = 0x00FF0000;
 
     *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = 0xFFFFFFFF;
     clock->tv_nsec = 300 * 1000 * 1000;
     for (int i = 0; i < 10; i++) {
       clock_nanosleep(CLOCK_MONOTONIC, 0, clock, NULL);
     }
-    exit(1);
+    exit(0);
 }
 void timerDecrement(struct timespec* clock) {
   clock->tv_nsec = clock->tv_nsec - 3000;
 }
+
+

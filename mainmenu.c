@@ -26,9 +26,9 @@ bool mainmenu(unsigned char* mem_base, unsigned char* parlcd_mem_base) {
     }
     int new_red_knob = (knob_values>>16) & 0xFF;
     int new_blue_knob = knob_values & 0xFF;
-    if (abs(red_knob - new_red_knob) > 3) {
+    if (abs(red_knob - new_red_knob) > 1) {
         return false;
-    } else if (abs(blue_knob - new_blue_knob) > 3) {
+    } else if (abs(blue_knob - new_blue_knob) > 1) {
         return true;
     }
     red_knob = new_red_knob;
