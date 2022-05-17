@@ -1,17 +1,17 @@
 #include "drawing.h"
 
 void draw_square(int x, int y, int scale, unsigned short** buffer, unsigned short color) {
-    color = 0xFFFF;
+    unsigned short drawing_color = 0xFFFF;
     if (color == 1) {
-        color = 0xF800;
+        drawing_color = 0xF800;
     } else if (color == 2) {
-        color = 0x001F ;
+        drawing_color = 0x001F ;
     }
     
 
     for (int i = 0; i < scale; i++) {
         for (int j = 0; j < scale; j++) {
-            buffer[x+i][y+j] = color;
+            buffer[x+i][y+j] = drawing_color;
         }
     }
 }
