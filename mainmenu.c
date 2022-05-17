@@ -85,7 +85,7 @@ void draw_first_screen(unsigned char* parlcd_mem_base) {
     start_x += pixel_scale;
     draw_horziontal_line(start_x, start_y, 16, pixel_scale, frame_buffer, 0);
     draw_horziontal_line(start_x, start_y + 16, 16, pixel_scale, frame_buffer, 0);
-    draw_horziontal_line(start_x, start_y + 32, 16, pixel_scale, frame_buffer, 0);
+    draw_horziontal_line(start_x, start_y + height - pixel_scale, 16, pixel_scale, frame_buffer, 0);
 
     //R
     start_x += 16 + pixel_scale;
@@ -121,12 +121,12 @@ void draw_first_screen(unsigned char* parlcd_mem_base) {
     draw_vert_line(start_x, start_y + 11 + pixel_scale, 25, pixel_scale, frame_buffer, 0);
     start_x += pixel_scale;
     draw_horziontal_line(start_x, start_y, 7, pixel_scale, frame_buffer, 0);
-    draw_horziontal_line(start_x, start_y + 11, 7, pixel_scale, frame_buffer, 0);
-    draw_horziontal_line(start_x, start_y + 11 + 29, 7, pixel_scale, frame_buffer, 0);
+    draw_horziontal_line(start_x, start_y + 11 + pixel_scale, 7, pixel_scale, frame_buffer, 0);
+    draw_horziontal_line(start_x, start_y + 11 + 25, 7, pixel_scale, frame_buffer, 0);
     start_x += 7;
     draw_vert_line(start_x, start_y, 23, pixel_scale, frame_buffer, 0);
     draw_vert_line(start_x, start_y + 30, 12, pixel_scale, frame_buffer, 0);
-    start_x -= (pixel_scale + 7);
+    start_x -= (7);
     draw_square(start_x, start_y + 44, pixel_scale, frame_buffer, 0);
 
     //Draw a red 1 in the left bottom of the screen
@@ -154,7 +154,7 @@ void draw_first_screen(unsigned char* parlcd_mem_base) {
     *(volatile uint16_t*)(parlcd_mem_base + PARLCD_REG_CMD_o) = 0x2c;
     for (int i = 0; i < 320; i++) {
         for (int j = 0; j < 480; j++) {
-            *(volatile uint16_t*)(parlcd_mem_base + PARLCD_REG_DATA_o) = frame_buffer[i][j];
+            *(volatile uint16_t*)(parlcd_mem_base + PARLCD_REG_DATA_o) = frame_buffer[j][i];
         }
     }
 

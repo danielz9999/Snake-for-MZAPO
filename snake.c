@@ -104,15 +104,15 @@ int main(int argc, char *argv[]) {
   //Initialise the LCD display
   parlcd_hx8357_init(parlcd_mem_base);
 
-  draw(playspace, parlcd_mem_base);
+
   
 
   bool two_players = mainmenu(mem_base, parlcd_mem_base);
   if (two_players) {
-      exit(1);
+      
   }
 
-
+  draw(playspace, parlcd_mem_base);
 
 
 
@@ -202,7 +202,7 @@ void draw(unsigned char** playspace, unsigned char* parlcd_mem_base) {
   *(volatile uint16_t*)(parlcd_mem_base + PARLCD_REG_CMD_o) = 0x2c;
    for (int i = 0; i < 320; i++) {
     for (int j = 0; j < 480; j++) {
-        *(volatile uint16_t*)(parlcd_mem_base + PARLCD_REG_DATA_o) = graphicDecode(playspace[i][j]);
+        *(volatile uint16_t*)(parlcd_mem_base + PARLCD_REG_DATA_o) = graphicDecode(playspace[j][i]);
     }
   }
   
