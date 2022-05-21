@@ -60,26 +60,33 @@ int main(int argc, char *argv[]) {
 
   //Initializing variables
   int score_counter = 1;
-  bool has_fruit_been_eaten;
-  bool is_game_over = false;
   int even_offset = 0;
+  int rgb_duration = 0;
+  char red_direction;
+  char blue_direction;
+  bool red_ate_fruit;
+  bool blue_ate_fruit;
+  bool red_game_over = false;
+  bool blue_game_over = false;
   bool has_red_turned = false;
+  bool has_blue_turned = false;
+  
+  
   if ((SNAKE_SIZE % 2) == 0) {
     even_offset = 1;
   }
-  
 
   unsigned char** playspace = calloc(480, sizeof(char*));
   for (int i = 0; i < 480; i++) {
     playspace[i] = calloc(320, sizeof(char));
   }
-
- 
-
   //Initial assiging to the logic board
 
   snake_head head_one;
   snake_head tail_one;
+
+  snake_head head_two;
+  snake_head tail_two;
 
   snake_head fruit_coordinates;
   fruit_coordinates.x = 240;
@@ -103,6 +110,7 @@ int main(int argc, char *argv[]) {
   //Initialise knob values
   unsigned int knob_values = *(volatile uint32_t*)(mem_base + SPILED_REG_KNOBS_8BIT_o);
   unsigned int red_knob = (knob_values>>16) & 0xFF;
+  unsigned int blue_knob = knob_values & 0xFF;
   //Initialise the LCD display
   parlcd_hx8357_init(parlcd_mem_base);
 
@@ -110,6 +118,11 @@ int main(int argc, char *argv[]) {
   if (two_players) {
       head_one.x = 160;
       tail_one.x = 160;
+
+      head_two.x = 320;
+      head_two.y = 160;
+      tail_two.x = 320;
+      tail_two.y = 160 + 5 * (SNAKE_SIZE + even_offset - 1);     
   } else {
     head_one.x = 240;
     tail_one.x = 240;
@@ -123,32 +136,53 @@ int main(int argc, char *argv[]) {
     for (int x_offset = 0; x_offset < SNAKE_SIZE; x_offset++) {
       for (int y_offset = 0 ; y_offset < SNAKE_SIZE; y_offset++) {
         playspace[start_x + x_offset][start_y + y_offset + i*(SNAKE_SIZE)] = UP;
+        if (two_players) {
+          playspace[start_x + x_offset + 160][start_y + y_offset + i*(SNAKE_SIZE)] = UP;
+        }
       }
     }
   }
   draw(playspace, parlcd_mem_base);
-  char current_direction;
+  
   //Main game loop
   while (1)
   {
-    current_direction = playspace[head_one.x][head_one.y];
-    int new_knob_values = *(volatile uint32_t*)(mem_base + SPILED_REG_KNOBS_8BIT_o);
-    int new_red_knob = (new_knob_values>>16) & 0xFF;
+    red_direction = playspace[head_one.x][head_one.y];
+    blue_direction = playspace[head_two.x][head_two.y];
+    
+    unsigned int new_knob_values = *(volatile uint32_t*)(mem_base + SPILED_REG_KNOBS_8BIT_o);
+    unsigned int new_red_knob = (new_knob_values>>16) & 0xFF;
+    unsigned int new_blue_knob = new_knob_values & 0xFF; 
+    //fprintf(stderr, "RED KNOB %d\n", new_red_knob);
+    fprintf(stderr, "BLUE KOB %d\n", new_blue_knob);
     if (!has_red_turned) {
-      current_direction = parse_knob(new_red_knob, red_knob, &has_red_turned, current_direction);
+      red_direction = parse_knob(new_red_knob, red_knob, &has_red_turned, red_direction);
     } else {
       has_red_turned = false;
     }
+    if (!has_blue_turned) {
+      blue_direction = parse_knob(new_blue_knob, blue_knob, &has_blue_turned, blue_direction);
+    } else {
+      has_blue_turned = false;
+    }
     red_knob = new_red_knob;
+    blue_knob = new_blue_knob;
 
 
-    is_game_over = movement(playspace, &has_fruit_been_eaten, &head_one, &tail_one, current_direction, SNAKE_SIZE);
-    if (is_game_over) {
+    //red_game_over = movement(playspace, &red_ate_fruit, &head_one, &tail_one, red_direction, SNAKE_SIZE);
+    blue_game_over = movement(playspace, &blue_ate_fruit, &head_two, &tail_two, blue_direction, SNAKE_SIZE);
+    if (red_game_over || blue_game_over) {
       game_over(mem_base, &clock_spec);
     }
-    if (has_fruit_been_eaten) {
+    if (red_ate_fruit) {
       fruit_get(&score_counter, mem_base, &clock_spec);
       generate_fruit(playspace, &fruit_coordinates.x, &fruit_coordinates.y, SNAKE_SIZE);
+      rgb_duration += 5;
+    }
+    if (blue_ate_fruit) {
+      fruit_get(&score_counter, mem_base, &clock_spec);
+      generate_fruit(playspace, &fruit_coordinates.x, &fruit_coordinates.y, SNAKE_SIZE);
+      rgb_duration += 5;
     }
 
     //display changes
@@ -157,9 +191,11 @@ int main(int argc, char *argv[]) {
     //pause before next cycle
     clock_nanosleep(CLOCK_MONOTONIC, 0, &clock_spec, NULL);
     //Resets RGB lights one tick after eating fruit
-    if (!has_fruit_been_eaten) {
+    if (rgb_duration == 0) {
       *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB1_o) = 0x00000000;
       *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB2_o) = 0x00000000; 
+    } else {
+      rgb_duration--;
     }
 
   }
@@ -227,6 +263,9 @@ void game_over(unsigned char* mem_base, struct timespec* clock) {
     for (int i = 0; i < 10; i++) {
       clock_nanosleep(CLOCK_MONOTONIC, 0, clock, NULL);
     }
+    *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB1_o) = 0x00000000;
+    *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB2_o) = 0x00000000;
+    *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = 0x00000000;
     exit(0);
 }
 void timer_decrement(struct timespec* clock) {
