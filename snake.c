@@ -153,8 +153,6 @@ int main(int argc, char *argv[]) {
     unsigned int new_knob_values = *(volatile uint32_t*)(mem_base + SPILED_REG_KNOBS_8BIT_o);
     unsigned int new_red_knob = (new_knob_values>>16) & 0xFF;
     unsigned int new_blue_knob = new_knob_values & 0xFF; 
-    //fprintf(stderr, "RED KNOB %d\n", new_red_knob);
-    fprintf(stderr, "BLUE KOB %d\n", new_blue_knob);
     if (!has_red_turned) {
       red_direction = parse_knob(new_red_knob, red_knob, &has_red_turned, red_direction);
     } else {
@@ -169,7 +167,7 @@ int main(int argc, char *argv[]) {
     blue_knob = new_blue_knob;
 
 
-    //red_game_over = movement(playspace, &red_ate_fruit, &head_one, &tail_one, red_direction, SNAKE_SIZE);
+    red_game_over = movement(playspace, &red_ate_fruit, &head_one, &tail_one, red_direction, SNAKE_SIZE);
     blue_game_over = movement(playspace, &blue_ate_fruit, &head_two, &tail_two, blue_direction, SNAKE_SIZE);
     if (red_game_over || blue_game_over) {
       game_over(mem_base, &clock_spec);
