@@ -1,0 +1,5 @@
+make --dry-run --keep-going --print-directory
+make: Entering directory '/home/dan/apo/sem/mz_apo_zampach_stanke'
+make: Nothing to be done for 'all'.
+make: Leaving directory '/home/dan/apo/sem/mz_apo_zampach_stanke'
+ 
