@@ -4,6 +4,7 @@ for the MicroZed based MZ_APO board during the 2022 summer semester.
 
 The developement of this project is logged using git on GitLab
 GitLab link: https://gitlab.fel.cvut.cz/stankpe4/mz_apo_zampach_stanke
+The main branch for the project is "two-players"
 
 Documentation is done through the wiki of the project on GitLab.
 
