@@ -12,7 +12,7 @@ Quickstart guide:
 To get the program working there are 2 to 3 things that need to be done:
 
 1. Change target ip of the MZ_APO board in the MAKEFILE (line 13)
-2. Change the path to the directory where the mzapo-root-key ssh key is located (line 26) (or use other means of authentication)
+2. Change the path to the directory where the mzapo-root-key ssh key is located (MAKEFILE line 26) (or use other means of authentication)
 3. If the main menu on boot does not look as pictured on the wiki (does not display "PLAYERS?" with a 1 and 2 under) then navigate to mzapo_parlcd.c.
 There on lines 17-18 you will find: 
 
