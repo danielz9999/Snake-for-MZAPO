@@ -28,7 +28,7 @@
 #include "snake_head.h"
 #include "movement.h"
 #include "mainmenu.h"
-#include "fruit_generation.h"
+#include "fruit.h"
 #include "drawing.h"
 #include "knob_parsing.h"
 
@@ -38,34 +38,21 @@
 //enum Directions {UP=1, RIGHT=2, DOWN=3, LEFT=4};
 unsigned short graphicDecode(char input);
 void draw(unsigned char** playspace, unsigned char* parlcd_mem_base);
-void fruit_get(int* score, unsigned char* mem_base, struct timespec* clock);
+//void fruit_get(int* score, unsigned char* mem_base, struct timespec* clock);
 void game_over(unsigned char* mem_base, struct timespec* clock);
-void timer_decrement(struct timespec* clock);
+//void timer_decrement(struct timespec* clock);
 
 
 int main(int argc, char *argv[]) {
-
-  /* Serialize execution of applications */
-
-  /* Try to acquire lock the first */
-  if (serialize_lock(1) <= 0) {
-    printf("System is occupied\n");
-
-    if (1) {
-      printf("Waitting\n");
-      /* Wait till application holding lock releases it or exits */
-      serialize_lock(0);
-    }
-  }
-
   //Initializing variables
-  int score_counter = 1;
+  unsigned int red_score = 1;
+  unsigned int blue_score = 1;
   int even_offset = 0;
   int rgb_duration = 0;
   char red_direction;
   char blue_direction;
-  bool red_ate_fruit;
-  bool blue_ate_fruit;
+  bool red_ate_fruit = false;
+  bool blue_ate_fruit = false;
   bool red_game_over = false;
   bool blue_game_over = false;
   bool has_red_turned = false;
@@ -91,11 +78,12 @@ int main(int argc, char *argv[]) {
   snake_head fruit_coordinates;
   fruit_coordinates.x = 240;
   fruit_coordinates.y = 160;
+  srand(time(NULL));
   generate_fruit(playspace, &fruit_coordinates.x, &fruit_coordinates.y, SNAKE_SIZE);
 
   struct timespec clock_spec;
   clock_spec.tv_sec = 0;
-  clock_spec.tv_nsec = 15 * 1000000;
+  clock_spec.tv_nsec = 10 * 1000000;
   
 
   //mapping
@@ -116,6 +104,8 @@ int main(int argc, char *argv[]) {
 
   bool two_players = mainmenu(mem_base, parlcd_mem_base);
   if (two_players) {
+      red_score = 0x80000000;
+
       head_one.x = 160;
       tail_one.x = 160;
 
@@ -148,8 +138,9 @@ int main(int argc, char *argv[]) {
   while (1)
   {
     red_direction = playspace[head_one.x][head_one.y];
-    blue_direction = playspace[head_two.x][head_two.y];
-    
+    if (two_players) {
+      blue_direction = playspace[head_two.x][head_two.y];
+    }
     unsigned int new_knob_values = *(volatile uint32_t*)(mem_base + SPILED_REG_KNOBS_8BIT_o);
     unsigned int new_red_knob = (new_knob_values>>16) & 0xFF;
     unsigned int new_blue_knob = new_knob_values & 0xFF; 
@@ -158,7 +149,7 @@ int main(int argc, char *argv[]) {
     } else {
       has_red_turned = false;
     }
-    if (!has_blue_turned) {
+    if (!has_blue_turned && two_players) {
       blue_direction = parse_knob(new_blue_knob, blue_knob, &has_blue_turned, blue_direction);
     } else {
       has_blue_turned = false;
@@ -168,17 +159,19 @@ int main(int argc, char *argv[]) {
 
 
     red_game_over = movement(playspace, &red_ate_fruit, &head_one, &tail_one, red_direction, SNAKE_SIZE);
-    blue_game_over = movement(playspace, &blue_ate_fruit, &head_two, &tail_two, blue_direction, SNAKE_SIZE);
+    if (two_players) {
+      blue_game_over = movement(playspace, &blue_ate_fruit, &head_two, &tail_two, blue_direction, SNAKE_SIZE);
+    }
     if (red_game_over || blue_game_over) {
       game_over(mem_base, &clock_spec);
     }
     if (red_ate_fruit) {
-      fruit_get(&score_counter, mem_base, &clock_spec);
+      fruit_get(&red_score, &blue_score, mem_base ,&clock_spec, two_players, 1);
       generate_fruit(playspace, &fruit_coordinates.x, &fruit_coordinates.y, SNAKE_SIZE);
       rgb_duration += 5;
     }
     if (blue_ate_fruit) {
-      fruit_get(&score_counter, mem_base, &clock_spec);
+      fruit_get(&red_score, &blue_score, mem_base ,&clock_spec, two_players, 2);
       generate_fruit(playspace, &fruit_coordinates.x, &fruit_coordinates.y, SNAKE_SIZE);
       rgb_duration += 5;
     }
@@ -198,37 +191,7 @@ int main(int argc, char *argv[]) {
 
   }
 
-  /* Release the lock */
-  serialize_unlock();
-
   return 0;
-}
-
-//Triggers when a snake eats a fruit
-void fruit_get(int* score, unsigned char* mem_base, struct timespec* clock) {
-  //The game progessively gets faster when fruit is picked up
-  timer_decrement(clock);
-
-  //If score reached max, celebrate, then reset score
-  if (*(score) >= 0xFFFFFFFF) {
-    *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB1_o) = 0x00FFFF00;
-    *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB2_o) = 0x00FFFF00; 
-
-    for (int i = 0; i < 100; i++) {
-      *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = 0xAAAAAAAA;
-      clock_nanosleep(CLOCK_MONOTONIC, 0 , clock, NULL);
-      *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = 0x55555555;
-      clock_nanosleep(CLOCK_MONOTONIC, 0 , clock, NULL);
-    }
-    *(score) = 1;
-  } else {
-    *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = *(score);
-    int temp = *(score);
-    *(score)<<=1;
-    *(score) += temp;
-    *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB1_o) = 0x0000FF00;
-    *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB2_o) = 0x0000FF00; 
-    }
 }
 //Decodes the logic in the playspace array into values which can be passed to the LCD display
 unsigned short graphicDecode(char input) {
@@ -265,9 +228,6 @@ void game_over(unsigned char* mem_base, struct timespec* clock) {
     *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB2_o) = 0x00000000;
     *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = 0x00000000;
     exit(0);
-}
-void timer_decrement(struct timespec* clock) {
-  clock->tv_nsec = clock->tv_nsec - 30000;
 }
 
 
