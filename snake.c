@@ -1,10 +1,7 @@
 /*******************************************************************
-  Project main function template for MicroZed based MZ_APO board
-  designed by Petr Porazil at PiKRON
-
-  snake.c      - main file
-
-  include your name there and license for distribution.
+  snake
+  Application developed by Daniel Žampach and Petr Stanke
+  for the MicroZed based MZ_APO board during the 2022 summer semester.
 
  *******************************************************************/
 #define _POSIX_C_SOURCE 200112L
