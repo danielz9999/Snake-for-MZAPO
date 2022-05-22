@@ -9,6 +9,8 @@ enum MovementVariables {FRUIT = 10, HEAD = 6};
 bool movement(unsigned char** playSpace, bool* has_fruit_been_eaten, snake_head *snakeHead,
         snake_head *snakeTail, int direction, int snake_size) {
 
+    int old_x = snakeHead->x;
+    int old_y = snakeHead->y;
     int even_offset = 0;
     if (snake_size % 2 == 0) {
         even_offset = 1;
@@ -48,6 +50,8 @@ bool movement(unsigned char** playSpace, bool* has_fruit_been_eaten, snake_head 
         for (int j = 0; j < snake_size; j++) {
             if (playSpace[upper_left_corner_x + i][upper_left_corner_y + j] != 0 &&
                 playSpace[upper_left_corner_x + i][upper_left_corner_y + j] != 10) {
+                snakeHead->x = old_x;
+                snakeHead->y = old_y;
                 return true;
             } else {
                 if (playSpace[upper_left_corner_x + i][upper_left_corner_y + j] == 10) {

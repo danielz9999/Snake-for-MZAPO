@@ -134,16 +134,6 @@ int main(int argc, char *argv[]) {
     unsigned int new_knob_values = *(volatile uint32_t*)(mem_base + SPILED_REG_KNOBS_8BIT_o);
     unsigned int new_red_knob = (new_knob_values>>16) & 0xFF;
     unsigned int new_blue_knob = new_knob_values & 0xFF; 
-    unsigned int green_button = (new_knob_values>>25) & 1;
-    //The green button pauses the game for a few seconds
-    if (green_button) {
-      long int temp = clock_spec.tv_nsec;
-      clock_spec.tv_nsec = 100*1000000;
-      for (int i = 0; i < 1000; i++) {
-        clock_nanosleep(CLOCK_MONOTONIC, 0, &clock_spec, NULL);
-      }
-      clock_spec.tv_nsec = temp;
-    }
     if (!has_red_turned) {
       red_direction = parse_knob(new_red_knob, red_knob, &has_red_turned, red_direction);
     } else {

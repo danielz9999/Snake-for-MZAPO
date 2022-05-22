@@ -85,4 +85,10 @@ void snake_death_animation(snake_head* tail, snake_head* head, unsigned char** p
             break;
         }
     }
+    for (int i = 0; i < SNAKE_SIZE; i++) {
+        for (int j = 0; j < SNAKE_SIZE; j++) {
+            playspace[tail->x - (SNAKE_SIZE/2 - even_offset) + i][tail->y - (SNAKE_SIZE/2 - even_offset) + j] = 0;
+        }
+    }
+    draw(playspace, parlcd_mem_base);
 }
