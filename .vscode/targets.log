@@ -6,7 +6,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Sun May 22 00:26:18 2022
+# Make data base, printed on Sun May 22 02:46:06 2022
 
 # Variables
 
@@ -47,8 +47,7 @@ MAKEFILE_LIST :=  Makefile depend
 # 'override' directive
 GNUMAKEFLAGS := 
 # makefile (from 'Makefile', line 10)
-SOURCES = snake.c mzapo_phys.c mzapo_parlcd.c serialize_lock.c mainmenu.c fruit.c movement.c drawing.c knob_parsing.c
- 
+SOURCES = snake.c mzapo_phys.c mzapo_parlcd.c serialize_lock.c mainmenu.c fruit.c movement.c drawing.c knob_parsing.c speed_menu.c
 # makefile (from 'Makefile', line 6)
 CXXFLAGS = -g -std=gnu++11 -O1 -Wall
 # environment
@@ -84,7 +83,6 @@ PWD = /home/dan/apo/sem/mz_apo_zampach_stanke
 # default
 .LOADED := 
 # environment
- 
 WSL_INTEROP = /run/WSL/8_interop
 # environment
 VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
@@ -189,9 +187,9 @@ MOTD_SHOWN = update-motd
 
 # Directories
 
-# . (device 2064, inode 83726): 40 files, no impossibilities.
+# . (device 2064, inode 83726): 43 files, no impossibilities.
 
-# 40 files, no impossibilities in 1 directories.
+# 43 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -217,7 +215,7 @@ mainmenu.c:
 # Not a target:
 snake.c:
 #  Implicit rule search has been done.
-#  Last modified 2022-05-22 00:25:27.2429972
+#  Last modified 2022-05-22 02:45:25.4029972
 #  File has been updated.
 #  Successfully updated.
 
@@ -245,7 +243,6 @@ mzapo_parlcd.h:
 # Not a target:
 /usr/arm-linux-gnueabihf/include/bits/stdio_lim.h:
 #  Implicit rule search has been done.
- 
 #  Last modified 2022-04-21 04:36:55
 #  File has been updated.
 #  Successfully updated.
@@ -270,6 +267,7 @@ mzapo_parlcd.h:
 #  Last modified 2022-04-21 04:36:55
 #  File has been updated.
 #  Successfully updated.
+ 
 
 # Not a target:
 /usr/arm-linux-gnueabihf/include/math.h:
@@ -309,7 +307,7 @@ mzapo_parlcd.h:
 drawing.o: drawing.c drawing.c /usr/arm-linux-gnueabihf/include/stdc-predef.h drawing.h /usr/lib/gcc-cross/arm-linux-gnueabihf/9/include/stdint.h /usr/arm-linux-gnueabihf/include/stdint.h /usr/arm-linux-gnueabihf/include/bits/libc-header-start.h /usr/arm-linux-gnueabihf/include/features.h /usr/arm-linux-gnueabihf/include/sys/cdefs.h /usr/arm-linux-gnueabihf/include/bits/wordsize.h /usr/arm-linux-gnueabihf/include/bits/long-double.h /usr/arm-linux-gnueabihf/include/gnu/stubs.h /usr/arm-linux-gnueabihf/include/gnu/stubs-hard.h /usr/arm-linux-gnueabihf/include/bits/types.h /usr/arm-linux-gnueabihf/include/bits/timesize.h /usr/arm-linux-gnueabihf/include/bits/typesizes.h /usr/arm-linux-gnueabihf/include/bits/time64.h /usr/arm-linux-gnueabihf/include/bits/wchar.h /usr/arm-linux-gnueabihf/include/bits/stdint-intn.h /usr/arm-linux-gnueabihf/include/bits/stdint-uintn.h
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: 'drawing'
-#  Last modified 2022-05-22 00:25:47.2529972
+#  Last modified 2022-05-22 02:45:53.3829972
 #  File has been updated.
 #  Successfully updated.
 #  recipe to execute (from 'Makefile', line 43):
@@ -426,11 +424,10 @@ movement.c:
 #  File has been updated.
 #  Successfully updated.
 
- 
-fruit.o: fruit.c fruit.c /usr/arm-linux-gnueabihf/include/stdc-predef.h /usr/arm-linux-gnueabihf/include/sys/types.h /usr/arm-linux-gnueabihf/include/features.h /usr/arm-linux-gnueabihf/include/sys/cdefs.h /usr/arm-linux-gnueabihf/include/bits/wordsize.h /usr/arm-linux-gnueabihf/include/bits/long-double.h /usr/arm-linux-gnueabihf/include/gnu/stubs.h /usr/arm-linux-gnueabihf/include/gnu/stubs-hard.h /usr/arm-linux-gnueabihf/include/bits/types.h /usr/arm-linux-gnueabihf/include/bits/timesize.h /usr/arm-linux-gnueabihf/include/bits/typesizes.h /usr/arm-linux-gnueabihf/include/bits/time64.h /usr/arm-linux-gnueabihf/include/bits/types/clockid_t.h /usr/arm-linux-gnueabihf/include/bits/types/time_t.h /usr/arm-linux-gnueabihf/include/bits/types/timer_t.h /usr/lib/gcc-cross/arm-linux-gnueabihf/9/include/stddef.h /usr/arm-linux-gnueabihf/include/bits/stdint-intn.h /usr/arm-linux-gnueabihf/include/bits/pthreadtypes.h /usr/arm-linux-gnueabihf/include/bits/thread-shared-types.h /usr/arm-linux-gnueabihf/include/bits/pthreadtypes-arch.h /usr/arm-linux-gnueabihf/include/bits/struct_mutex.h /usr/arm-linux-gnueabihf/include/bits/struct_rwlock.h /usr/arm-linux-gnueabihf/include/bits/endian.h /usr/arm-linux-gnueabihf/include/bits/endianness.h /usr/arm-linux-gnueabihf/include/sys/stat.h /usr/arm-linux-gnueabihf/include/bits/stat.h /usr/arm-linux-gnueabihf/include/sys/mman.h /usr/arm-linux-gnueabihf/include/bits/mman.h /usr/arm-linux-gnueabihf/include/bits/mman-map-flags-generic.h /usr/arm-linux-gnueabihf/include/bits/mman-linux.h /usr/arm-linux-gnueabihf/include/bits/mman-shared.h /usr/arm-linux-gnueabihf/include/fcntl.h /usr/arm-linux-gnueabihf/include/bits/fcntl.h /usr/arm-linux-gnueabihf/include/bits/fcntl-linux.h /usr/arm-linux-gnueabihf/include/bits/fcntl2.h /usr/arm-linux-gnueabihf/include/unistd.h /usr/arm-linux-gnueabihf/include/bits/posix_opt.h /usr/arm-linux-gnueabihf/include/bits/environments.h /usr/arm-linux-gnueabihf/include/bits/confname.h /usr/arm-linux-gnueabihf/include/bits/getopt_posix.h /usr/arm-linux-gnueabihf/include/bits/getopt_core.h /usr/arm-linux-gnueabihf/include/bits/unistd.h /usr/arm-linux-gnueabihf/include/bits/unistd_ext.h mzapo_parlcd.h /usr/lib/gcc-cross/arm-linux-gnueabihf/9/include/stdint.h /usr/arm-linux-gnueabihf/include/stdint.h /usr/arm-linux-gnueabihf/include/bits/libc-header-start.h /usr/arm-linux-gnueabihf/include/bits/wchar.h /usr/arm-linux-gnueabihf/include/bits/stdint-uintn.h mzapo_phys.h mzapo_regs.h /usr/arm-linux-gnueabihf/include/stdlib.h /usr/arm-linux-gnueabihf/include/bits/floatn.h /usr/arm-linux-gnueabihf/include/bits/floatn-common.h /usr/arm-linux-gnueabihf/include/bits/stdlib-bsearch.h /usr/arm-linux-gnueabihf/include/bits/stdlib-float.h /usr/arm-linux-gnueabihf/include/bits/stdlib.h /usr/arm-linux-gnueabihf/include/stdio.h /usr/lib/gcc-cross/arm-linux-gnueabihf/9/include/stdarg.h /usr/arm-linux-gnueabihf/include/bits/types/__fpos_t.h /usr/arm-linux-gnueabihf/include/bits/types/__mbstate_t.h /usr/arm-linux-gnueabihf/include/bits/types/__fpos64_t.h /usr/arm-linux-gnueabihf/include/bits/types/__FILE.h /usr/arm-linux-gnueabihf/include/bits/types/FILE.h /usr/arm-linux-gnueabihf/include/bits/types/struct_FILE.h /usr/arm-linux-gnueabihf/include/bits/stdio_lim.h /usr/arm-linux-gnueabihf/include/bits/sys_errlist.h /usr/arm-linux-gnueabihf/include/bits/stdio.h /usr/arm-linux-gnueabihf/include/bits/stdio2.h /usr/arm-linux-gnueabihf/include/math.h /usr/arm-linux-gnueabihf/include/bits/math-vector.h /usr/arm-linux-gnueabihf/include/bits/libm-simd-decl-stubs.h /usr/arm-linux-gnueabihf/include/bits/flt-eval-method.h /usr/arm-linux-gnueabihf/include/bits/fp-logb.h /usr/arm-linux-gnueabihf/include/bits/fp-fast.h /usr/arm-linux-gnueabihf/include/bits/mathcalls-helper-functions.h /usr/arm-linux-gnueabihf/include/bits/mathcalls.h /usr/arm-linux-gnueabihf/include/bits/mathinline.h
+fruit.o: fruit.c fruit.c /usr/arm-linux-gnueabihf/include/stdc-predef.h /usr/arm-linux-gnueabihf/include/sys/types.h /usr/arm-linux-gnueabihf/include/features.h /usr/arm-linux-gnueabihf/include/sys/cdefs.h /usr/arm-linux-gnueabihf/include/bits/wordsize.h /usr/arm-linux-gnueabihf/include/bits/long-double.h /usr/arm-linux-gnueabihf/include/gnu/stubs.h /usr/arm-linux-gnueabihf/include/gnu/stubs-hard.h /usr/arm-linux-gnueabihf/include/bits/types.h /usr/arm-linux-gnueabihf/include/bits/timesize.h /usr/arm-linux-gnueabihf/include/bits/typesizes.h /usr/arm-linux-gnueabihf/include/bits/time64.h /usr/arm-linux-gnueabihf/include/bits/types/clockid_t.h /usr/arm-linux-gnueabihf/include/bits/types/time_t.h /usr/arm-linux-gnueabihf/include/bits/types/timer_t.h /usr/lib/gcc-cross/arm-linux-gnueabihf/9/include/stddef.h /usr/arm-linux-gnueabihf/include/bits/stdint-intn.h /usr/arm-linux-gnueabihf/include/bits/pthreadtypes.h /usr/arm-linux-gnueabihf/include/bits/thread-shared-types.h /usr/arm-linux-gnueabihf/include/bits/pthreadtypes-arch.h /usr/arm-linux-gnueabihf/include/bits/struct_mutex.h /usr/arm-linux-gnueabihf/include/bits/struct_rwlock.h /usr/arm-linux-gnueabihf/include/bits/endian.h /usr/arm-linux-gnueabihf/include/bits/endianness.h /usr/arm-linux-gnueabihf/include/sys/stat.h /usr/arm-linux-gnueabihf/include/bits/stat.h /usr/arm-linux-gnueabihf/include/sys/mman.h /usr/arm-linux-gnueabihf/include/bits/mman.h /usr/arm-linux-gnueabihf/include/bits/mman-map-flags-generic.h /usr/arm-linux-gnueabihf/include/bits/mman-linux.h /usr/arm-linux-gnueabihf/include/bits/mman-shared.h /usr/arm-linux-gnueabihf/include/fcntl.h /usr/arm-linux-gnueabihf/include/bits/fcntl.h /usr/arm-linux-gnueabihf/include/bits/fcntl-linux.h /usr/arm-linux-gnueabihf/include/bits/fcntl2.h /usr/arm-linux-gnueabihf/include/unistd.h /usr/arm-linux-gnueabihf/include/bits/posix_opt.h /usr/arm-linux-gnueabihf/include/bits/environments.h /usr/arm-linux-gnueabihf/include/bits/confname.h /usr/arm-linux-gnueabihf/include/bits/getopt_posix.h /usr/arm-linux-gnueabihf/include/bits/getopt_core.h /usr/arm-linux-gnueabihf/include/bits/unistd.h /usr/arm-linux-gnueabihf/include/bits/unistd_ext.h mzapo_parlcd.h /usr/lib/gcc-cross/arm-linux-gnueabihf/9/include/stdint.h /usr/arm-linux-gnueabihf/include/stdint.h /usr/arm-linux-gnueabihf/include/bits/libc-header-start.h /usr/arm-linux-gnueabihf/include/bits/wchar.h /usr/arm-linux-gnueabihf/include/bits/stdint-uintn.h mzapo_phys.h mzapo_regs.h /usr/arm-linux-gnueabihf/include/stdlib.h /usr/arm-linux-gnueabihf/include/bits/floatn.h /usr/arm-linux-gnueabihf/include/bits/floatn-common.h /usr/arm-linux-gnueabihf/include/bits/stdlib-bsearch.h /usr/arm-linux-gnueabihf/include/bits/stdlib-float.h /usr/arm-linux-gnueabihf/include/bits/stdlib.h /usr/arm-linux-gnueabihf/include/stdio.h /usr/lib/gcc-cross/arm-linux-gnueabihf/9/include/stdarg.h /usr/arm-linux-gnueabihf/include/bits/types/__fpos_t.h /usr/arm-linux-gnueabihf/include/bits/types/__mbstate_t.h /usr/arm-linux-gnueabihf/include/bits/types/__fpos64_t.h /usr/arm-linux-gnueabihf/include/bits/types/__FILE.h /usr/arm-linux-gnueabihf/include/bits/types/FILE.h /usr/arm-linux-gnueabihf/include/bits/types/struct_FILE.h /usr/arm-linux-gnueabihf/include/bits/stdio_lim.h /usr/arm-linux-gnueabihf/include/bits/sys_errlist.h /usr/arm-linux-gnueabihf/include/bits/stdio.h /usr/arm-linux-gnueabihf/include/bits/stdio2.h /usr/arm-linux-gnueabihf/include/math.h /usr/arm-linux-gnueabihf/include/bits/math-vector.h /usr/arm-linux-gnueabihf/include/bits/libm-simd-decl-stubs.h /usr/arm-linux-gnueabihf/include/bits/flt-eval-method.h /usr/arm-linux-gnueabihf/include/bits/fp-logb.h /usr/arm-linux-gnueabihf/include/bits/fp-fast.h /usr/arm-linux-gnueabihf/include/bits/mathcalls-helper-functions.h /usr/arm-linux-gnueabihf/include/bits/mathcalls.h /usr/arm-linux-gnueabihf/include/bits/mathinline.h /usr/arm-linux-gnueabihf/include/time.h /usr/arm-linux-gnueabihf/include/bits/time.h /usr/arm-linux-gnueabihf/include/bits/types/clock_t.h /usr/arm-linux-gnueabihf/include/bits/types/struct_tm.h /usr/arm-linux-gnueabihf/include/bits/types/struct_timespec.h /usr/arm-linux-gnueabihf/include/bits/types/struct_itimerspec.h /usr/lib/gcc-cross/arm-linux-gnueabihf/9/include/stdbool.h fruit.h
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: 'fruit'
-#  Last modified 2022-05-22 00:25:47.1729972
+#  Last modified 2022-05-22 02:45:53.2929972
 #  File has been updated.
 #  Successfully updated.
 #  recipe to execute (from 'Makefile', line 43):
@@ -523,7 +520,7 @@ snake_body.h:
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-05-22 00:25:43.7629972
+#  Last modified 2022-05-22 02:45:40.8729972
 #  File has been updated.
 #  Successfully updated.
 
@@ -545,6 +542,7 @@ Makefile:
 /usr/arm-linux-gnueabihf/include/bits/sys_errlist.h:
 #  Implicit rule search has been done.
 #  Last modified 2022-04-21 04:36:55
+ 
 #  File has been updated.
 #  Successfully updated.
 
@@ -568,6 +566,15 @@ mzapo_regs.h:
 #  Last modified 2022-05-03 17:29:11.4609738
 #  File has been updated.
 #  Successfully updated.
+
+speed_menu.o: speed_menu.c speed_menu.c /usr/arm-linux-gnueabihf/include/stdc-predef.h speed_menu.h drawing.h /usr/lib/gcc-cross/arm-linux-gnueabihf/9/include/stdint.h /usr/arm-linux-gnueabihf/include/stdint.h /usr/arm-linux-gnueabihf/include/bits/libc-header-start.h /usr/arm-linux-gnueabihf/include/features.h /usr/arm-linux-gnueabihf/include/sys/cdefs.h /usr/arm-linux-gnueabihf/include/bits/wordsize.h /usr/arm-linux-gnueabihf/include/bits/long-double.h /usr/arm-linux-gnueabihf/include/gnu/stubs.h /usr/arm-linux-gnueabihf/include/gnu/stubs-hard.h /usr/arm-linux-gnueabihf/include/bits/types.h /usr/arm-linux-gnueabihf/include/bits/timesize.h /usr/arm-linux-gnueabihf/include/bits/typesizes.h /usr/arm-linux-gnueabihf/include/bits/time64.h /usr/arm-linux-gnueabihf/include/bits/wchar.h /usr/arm-linux-gnueabihf/include/bits/stdint-intn.h /usr/arm-linux-gnueabihf/include/bits/stdint-uintn.h mzapo_regs.h
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'speed_menu'
+#  Last modified 2022-05-22 02:45:53.4629972
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 43):
+	$(CC) $(CFLAGS) $(CPPFLAGS) -o $@ -c $<
 
 # Not a target:
 /usr/arm-linux-gnueabihf/include/bits/stdio.h:
@@ -657,7 +664,7 @@ dep: depend
 # Not a target:
 movement.h:
 #  Implicit rule search has been done.
-#  Last modified 2022-05-21 16:21:15.324743
+#  Last modified 2022-05-22 00:28:44.4029972
 #  File has been updated.
 #  Successfully updated.
 
@@ -685,7 +692,7 @@ movement.h:
 knob_parsing.o: knob_parsing.c knob_parsing.c /usr/arm-linux-gnueabihf/include/stdc-predef.h /usr/arm-linux-gnueabihf/include/stdlib.h /usr/arm-linux-gnueabihf/include/bits/libc-header-start.h /usr/arm-linux-gnueabihf/include/features.h /usr/arm-linux-gnueabihf/include/sys/cdefs.h /usr/arm-linux-gnueabihf/include/bits/wordsize.h /usr/arm-linux-gnueabihf/include/bits/long-double.h /usr/arm-linux-gnueabihf/include/gnu/stubs.h /usr/arm-linux-gnueabihf/include/gnu/stubs-hard.h /usr/lib/gcc-cross/arm-linux-gnueabihf/9/include/stddef.h /usr/arm-linux-gnueabihf/include/bits/waitflags.h /usr/arm-linux-gnueabihf/include/bits/waitstatus.h /usr/arm-linux-gnueabihf/include/bits/floatn.h /usr/arm-linux-gnueabihf/include/bits/floatn-common.h /usr/arm-linux-gnueabihf/include/sys/types.h /usr/arm-linux-gnueabihf/include/bits/types.h /usr/arm-linux-gnueabihf/include/bits/timesize.h /usr/arm-linux-gnueabihf/include/bits/typesizes.h /usr/arm-linux-gnueabihf/include/bits/time64.h /usr/arm-linux-gnueabihf/include/bits/types/clock_t.h /usr/arm-linux-gnueabihf/include/bits/types/clockid_t.h /usr/arm-linux-gnueabihf/include/bits/types/time_t.h /usr/arm-linux-gnueabihf/include/bits/types/timer_t.h /usr/arm-linux-gnueabihf/include/bits/stdint-intn.h /usr/arm-linux-gnueabihf/include/endian.h /usr/arm-linux-gnueabihf/include/bits/endian.h /usr/arm-linux-gnueabihf/include/bits/endianness.h /usr/arm-linux-gnueabihf/include/bits/byteswap.h /usr/arm-linux-gnueabihf/include/bits/uintn-identity.h /usr/arm-linux-gnueabihf/include/sys/select.h /usr/arm-linux-gnueabihf/include/bits/select.h /usr/arm-linux-gnueabihf/include/bits/types/sigset_t.h /usr/arm-linux-gnueabihf/include/bits/types/__sigset_t.h /usr/arm-linux-gnueabihf/include/bits/types/struct_timeval.h /usr/arm-linux-gnueabihf/include/bits/types/struct_timespec.h /usr/arm-linux-gnueabihf/include/bits/select2.h /usr/arm-linux-gnueabihf/include/bits/pthreadtypes.h /usr/arm-linux-gnueabihf/include/bits/thread-shared-types.h /usr/arm-linux-gnueabihf/include/bits/pthreadtypes-arch.h /usr/arm-linux-gnueabihf/include/bits/struct_mutex.h /usr/arm-linux-gnueabihf/include/bits/struct_rwlock.h /usr/arm-linux-gnueabihf/include/alloca.h /usr/arm-linux-gnueabihf/include/bits/stdlib-bsearch.h /usr/arm-linux-gnueabihf/include/bits/stdlib-float.h /usr/arm-linux-gnueabihf/include/bits/stdlib.h knob_parsing.h /usr/lib/gcc-cross/arm-linux-gnueabihf/9/include/stdbool.h
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: 'knob_parsing'
-#  Last modified 2022-05-22 00:25:47.2929972
+#  Last modified 2022-05-22 02:45:53.4129972
 #  File has been updated.
 #  Successfully updated.
 #  recipe to execute (from 'Makefile', line 43):
@@ -696,7 +703,6 @@ knob_parsing.o: knob_parsing.c knob_parsing.c /usr/arm-linux-gnueabihf/include/s
 #  Implicit rule search has been done.
 #  Last modified 2022-04-21 04:36:55
 #  File has been updated.
- 
 #  Successfully updated.
 
 # Not a target:
@@ -765,7 +771,7 @@ serialize_lock.h:
 mzapo_phys.o: mzapo_phys.c mzapo_phys.c /usr/arm-linux-gnueabihf/include/stdc-predef.h /usr/arm-linux-gnueabihf/include/sys/types.h /usr/arm-linux-gnueabihf/include/features.h /usr/arm-linux-gnueabihf/include/sys/cdefs.h /usr/arm-linux-gnueabihf/include/bits/wordsize.h /usr/arm-linux-gnueabihf/include/bits/long-double.h /usr/arm-linux-gnueabihf/include/gnu/stubs.h /usr/arm-linux-gnueabihf/include/gnu/stubs-hard.h /usr/arm-linux-gnueabihf/include/bits/types.h /usr/arm-linux-gnueabihf/include/bits/timesize.h /usr/arm-linux-gnueabihf/include/bits/typesizes.h /usr/arm-linux-gnueabihf/include/bits/time64.h /usr/arm-linux-gnueabihf/include/bits/types/clockid_t.h /usr/arm-linux-gnueabihf/include/bits/types/time_t.h /usr/arm-linux-gnueabihf/include/bits/types/timer_t.h /usr/lib/gcc-cross/arm-linux-gnueabihf/9/include/stddef.h /usr/arm-linux-gnueabihf/include/bits/stdint-intn.h /usr/arm-linux-gnueabihf/include/bits/pthreadtypes.h /usr/arm-linux-gnueabihf/include/bits/thread-shared-types.h /usr/arm-linux-gnueabihf/include/bits/pthreadtypes-arch.h /usr/arm-linux-gnueabihf/include/bits/struct_mutex.h /usr/arm-linux-gnueabihf/include/bits/struct_rwlock.h /usr/arm-linux-gnueabihf/include/bits/endian.h /usr/arm-linux-gnueabihf/include/bits/endianness.h /usr/arm-linux-gnueabihf/include/sys/stat.h /usr/arm-linux-gnueabihf/include/bits/stat.h /usr/arm-linux-gnueabihf/include/sys/mman.h /usr/arm-linux-gnueabihf/include/bits/mman.h /usr/arm-linux-gnueabihf/include/bits/mman-map-flags-generic.h /usr/arm-linux-gnueabihf/include/bits/mman-linux.h /usr/arm-linux-gnueabihf/include/bits/mman-shared.h /usr/arm-linux-gnueabihf/include/fcntl.h /usr/arm-linux-gnueabihf/include/bits/fcntl.h /usr/arm-linux-gnueabihf/include/bits/fcntl-linux.h /usr/arm-linux-gnueabihf/include/bits/fcntl2.h /usr/arm-linux-gnueabihf/include/stdio.h /usr/arm-linux-gnueabihf/include/bits/libc-header-start.h /usr/lib/gcc-cross/arm-linux-gnueabihf/9/include/stdarg.h /usr/arm-linux-gnueabihf/include/bits/types/__fpos_t.h /usr/arm-linux-gnueabihf/include/bits/types/__mbstate_t.h /usr/arm-linux-gnueabihf/include/bits/types/__fpos64_t.h /usr/arm-linux-gnueabihf/include/bits/types/__FILE.h /usr/arm-linux-gnueabihf/include/bits/types/FILE.h /usr/arm-linux-gnueabihf/include/bits/types/struct_FILE.h /usr/arm-linux-gnueabihf/include/bits/stdio_lim.h /usr/arm-linux-gnueabihf/include/bits/sys_errlist.h /usr/arm-linux-gnueabihf/include/bits/stdio.h /usr/arm-linux-gnueabihf/include/bits/stdio2.h /usr/arm-linux-gnueabihf/include/unistd.h /usr/arm-linux-gnueabihf/include/bits/posix_opt.h /usr/arm-linux-gnueabihf/include/bits/environments.h /usr/arm-linux-gnueabihf/include/bits/confname.h /usr/arm-linux-gnueabihf/include/bits/getopt_posix.h /usr/arm-linux-gnueabihf/include/bits/getopt_core.h /usr/arm-linux-gnueabihf/include/bits/unistd.h /usr/arm-linux-gnueabihf/include/bits/unistd_ext.h mzapo_phys.h
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: 'mzapo_phys'
-#  Last modified 2022-05-22 00:25:46.9729972
+#  Last modified 2022-05-22 02:45:53.0829972
 #  File has been updated.
 #  Successfully updated.
 #  recipe to execute (from 'Makefile', line 43):
@@ -804,20 +810,21 @@ mzapo_phys.o: mzapo_phys.c mzapo_phys.c /usr/arm-linux-gnueabihf/include/stdc-pr
 #  Implicit rule search has been done.
 #  Last modified 2022-04-21 04:36:55
 #  File has been updated.
+ 
 #  Successfully updated.
 
 mzapo_parlcd.o: mzapo_parlcd.c mzapo_parlcd.c /usr/arm-linux-gnueabihf/include/stdc-predef.h /usr/lib/gcc-cross/arm-linux-gnueabihf/9/include/stdint.h /usr/arm-linux-gnueabihf/include/stdint.h /usr/arm-linux-gnueabihf/include/bits/libc-header-start.h /usr/arm-linux-gnueabihf/include/features.h /usr/arm-linux-gnueabihf/include/sys/cdefs.h /usr/arm-linux-gnueabihf/include/bits/wordsize.h /usr/arm-linux-gnueabihf/include/bits/long-double.h /usr/arm-linux-gnueabihf/include/gnu/stubs.h /usr/arm-linux-gnueabihf/include/gnu/stubs-hard.h /usr/arm-linux-gnueabihf/include/bits/types.h /usr/arm-linux-gnueabihf/include/bits/timesize.h /usr/arm-linux-gnueabihf/include/bits/typesizes.h /usr/arm-linux-gnueabihf/include/bits/time64.h /usr/arm-linux-gnueabihf/include/bits/wchar.h /usr/arm-linux-gnueabihf/include/bits/stdint-intn.h /usr/arm-linux-gnueabihf/include/bits/stdint-uintn.h /usr/arm-linux-gnueabihf/include/time.h /usr/lib/gcc-cross/arm-linux-gnueabihf/9/include/stddef.h /usr/arm-linux-gnueabihf/include/bits/time.h /usr/arm-linux-gnueabihf/include/bits/types/clock_t.h /usr/arm-linux-gnueabihf/include/bits/types/time_t.h /usr/arm-linux-gnueabihf/include/bits/types/struct_tm.h /usr/arm-linux-gnueabihf/include/bits/types/struct_timespec.h /usr/arm-linux-gnueabihf/include/bits/endian.h /usr/arm-linux-gnueabihf/include/bits/endianness.h /usr/arm-linux-gnueabihf/include/bits/types/clockid_t.h /usr/arm-linux-gnueabihf/include/bits/types/timer_t.h /usr/arm-linux-gnueabihf/include/bits/types/struct_itimerspec.h mzapo_parlcd.h mzapo_regs.h
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: 'mzapo_parlcd'
-#  Last modified 2022-05-22 00:25:47.0129972
+#  Last modified 2022-05-22 02:45:53.1229972
 #  File has been updated.
 #  Successfully updated.
 #  recipe to execute (from 'Makefile', line 43):
 	$(CC) $(CFLAGS) $(CPPFLAGS) -o $@ -c $<
 
-depend: snake.c mzapo_phys.c mzapo_parlcd.c serialize_lock.c mainmenu.c fruit.c movement.c drawing.c knob_parsing.c knob_parsing.h movement.h serialize_lock.h mzapo_phys.h drawing.h font_types.h snake_head.h fruit.h mzapo_regs.h mzapo_parlcd.h mainmenu.h snake_body.h
+depend: snake.c mzapo_phys.c mzapo_parlcd.c serialize_lock.c mainmenu.c fruit.c movement.c drawing.c knob_parsing.c speed_menu.c knob_parsing.h movement.h serialize_lock.h mzapo_phys.h drawing.h font_types.h snake_head.h fruit.h mzapo_regs.h speed_menu.h mzapo_parlcd.h mainmenu.h snake_body.h
 #  Implicit rule search has not been done.
-#  Last modified 2022-05-22 00:25:46.8429972
+#  Last modified 2022-05-22 02:45:52.9629972
 #  File has been updated.
 #  Successfully updated.
 #  recipe to execute (from 'Makefile', line 58):
@@ -835,7 +842,7 @@ depend: snake.c mzapo_phys.c mzapo_parlcd.c serialize_lock.c mainmenu.c fruit.c 
 # Not a target:
 fruit.c:
 #  Implicit rule search has been done.
-#  Last modified 2022-05-21 18:58:24.394743
+#  Last modified 2022-05-22 02:37:55.2429972
 #  File has been updated.
 #  Successfully updated.
 
@@ -909,6 +916,13 @@ drawing.h:
 #  Successfully updated.
 
 # Not a target:
+speed_menu.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-05-22 02:43:51.9129972
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
 /usr/arm-linux-gnueabihf/include/gnu/stubs.h:
 #  Implicit rule search has been done.
 #  Last modified 2022-04-21 04:36:55
@@ -922,9 +936,9 @@ drawing.h:
 #  File has been updated.
 #  Successfully updated.
 
-snake: snake.o mzapo_phys.o mzapo_parlcd.o serialize_lock.o mainmenu.o fruit.o movement.o drawing.o knob_parsing.o
+snake: snake.o mzapo_phys.o mzapo_parlcd.o serialize_lock.o mainmenu.o fruit.o movement.o drawing.o knob_parsing.o speed_menu.o
 #  Implicit rule search has not been done.
-#  Last modified 2022-05-22 00:25:47.4029972
+#  Last modified 2022-05-22 02:45:53.5629972
 #  File has been updated.
 #  Successfully updated.
 #  recipe to execute (from 'Makefile', line 51):
@@ -940,16 +954,16 @@ snake: snake.o mzapo_phys.o mzapo_parlcd.o serialize_lock.o mainmenu.o fruit.o m
 mainmenu.o: mainmenu.c mainmenu.c /usr/arm-linux-gnueabihf/include/stdc-predef.h /usr/arm-linux-gnueabihf/include/stdio.h /usr/arm-linux-gnueabihf/include/bits/libc-header-start.h /usr/arm-linux-gnueabihf/include/features.h /usr/arm-linux-gnueabihf/include/sys/cdefs.h /usr/arm-linux-gnueabihf/include/bits/wordsize.h /usr/arm-linux-gnueabihf/include/bits/long-double.h /usr/arm-linux-gnueabihf/include/gnu/stubs.h /usr/arm-linux-gnueabihf/include/gnu/stubs-hard.h /usr/lib/gcc-cross/arm-linux-gnueabihf/9/include/stddef.h /usr/lib/gcc-cross/arm-linux-gnueabihf/9/include/stdarg.h /usr/arm-linux-gnueabihf/include/bits/types.h /usr/arm-linux-gnueabihf/include/bits/timesize.h /usr/arm-linux-gnueabihf/include/bits/typesizes.h /usr/arm-linux-gnueabihf/include/bits/time64.h /usr/arm-linux-gnueabihf/include/bits/types/__fpos_t.h /usr/arm-linux-gnueabihf/include/bits/types/__mbstate_t.h /usr/arm-linux-gnueabihf/include/bits/types/__fpos64_t.h /usr/arm-linux-gnueabihf/include/bits/types/__FILE.h /usr/arm-linux-gnueabihf/include/bits/types/FILE.h /usr/arm-linux-gnueabihf/include/bits/types/struct_FILE.h /usr/arm-linux-gnueabihf/include/bits/stdio_lim.h /usr/arm-linux-gnueabihf/include/bits/sys_errlist.h /usr/arm-linux-gnueabihf/include/bits/stdio.h /usr/arm-linux-gnueabihf/include/bits/stdio2.h /usr/lib/gcc-cross/arm-linux-gnueabihf/9/include/stdbool.h /usr/arm-linux-gnueabihf/include/stdlib.h /usr/arm-linux-gnueabihf/include/bits/waitflags.h /usr/arm-linux-gnueabihf/include/bits/waitstatus.h /usr/arm-linux-gnueabihf/include/bits/floatn.h /usr/arm-linux-gnueabihf/include/bits/floatn-common.h /usr/arm-linux-gnueabihf/include/sys/types.h /usr/arm-linux-gnueabihf/include/bits/types/clock_t.h /usr/arm-linux-gnueabihf/include/bits/types/clockid_t.h /usr/arm-linux-gnueabihf/include/bits/types/time_t.h /usr/arm-linux-gnueabihf/include/bits/types/timer_t.h /usr/arm-linux-gnueabihf/include/bits/stdint-intn.h /usr/arm-linux-gnueabihf/include/endian.h /usr/arm-linux-gnueabihf/include/bits/endian.h /usr/arm-linux-gnueabihf/include/bits/endianness.h /usr/arm-linux-gnueabihf/include/bits/byteswap.h /usr/arm-linux-gnueabihf/include/bits/uintn-identity.h /usr/arm-linux-gnueabihf/include/sys/select.h /usr/arm-linux-gnueabihf/include/bits/select.h /usr/arm-linux-gnueabihf/include/bits/types/sigset_t.h /usr/arm-linux-gnueabihf/include/bits/types/__sigset_t.h /usr/arm-linux-gnueabihf/include/bits/types/struct_timeval.h /usr/arm-linux-gnueabihf/include/bits/types/struct_timespec.h /usr/arm-linux-gnueabihf/include/bits/select2.h /usr/arm-linux-gnueabihf/include/bits/pthreadtypes.h /usr/arm-linux-gnueabihf/include/bits/thread-shared-types.h /usr/arm-linux-gnueabihf/include/bits/pthreadtypes-arch.h /usr/arm-linux-gnueabihf/include/bits/struct_mutex.h /usr/arm-linux-gnueabihf/include/bits/struct_rwlock.h /usr/arm-linux-gnueabihf/include/alloca.h /usr/arm-linux-gnueabihf/include/bits/stdlib-bsearch.h /usr/arm-linux-gnueabihf/include/bits/stdlib-float.h /usr/arm-linux-gnueabihf/include/bits/stdlib.h drawing.h /usr/lib/gcc-cross/arm-linux-gnueabihf/9/include/stdint.h /usr/arm-linux-gnueabihf/include/stdint.h /usr/arm-linux-gnueabihf/include/bits/wchar.h /usr/arm-linux-gnueabihf/include/bits/stdint-uintn.h mzapo_regs.h mainmenu.h
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: 'mainmenu'
-#  Last modified 2022-05-22 00:25:47.1129972
+#  Last modified 2022-05-22 02:45:53.2229972
 #  File has been updated.
 #  Successfully updated.
 #  recipe to execute (from 'Makefile', line 43):
 	$(CC) $(CFLAGS) $(CPPFLAGS) -o $@ -c $<
 
-snake.o: snake.c snake.c /usr/arm-linux-gnueabihf/include/stdc-predef.h /usr/arm-linux-gnueabihf/include/stdlib.h /usr/arm-linux-gnueabihf/include/bits/libc-header-start.h /usr/arm-linux-gnueabihf/include/features.h /usr/arm-linux-gnueabihf/include/sys/cdefs.h /usr/arm-linux-gnueabihf/include/bits/wordsize.h /usr/arm-linux-gnueabihf/include/bits/long-double.h /usr/arm-linux-gnueabihf/include/gnu/stubs.h /usr/arm-linux-gnueabihf/include/gnu/stubs-hard.h /usr/lib/gcc-cross/arm-linux-gnueabihf/9/include/stddef.h /usr/arm-linux-gnueabihf/include/bits/floatn.h /usr/arm-linux-gnueabihf/include/bits/floatn-common.h /usr/arm-linux-gnueabihf/include/bits/stdlib-bsearch.h /usr/arm-linux-gnueabihf/include/bits/stdlib-float.h /usr/arm-linux-gnueabihf/include/bits/stdlib.h /usr/arm-linux-gnueabihf/include/stdio.h /usr/lib/gcc-cross/arm-linux-gnueabihf/9/include/stdarg.h /usr/arm-linux-gnueabihf/include/bits/types.h /usr/arm-linux-gnueabihf/include/bits/timesize.h /usr/arm-linux-gnueabihf/include/bits/typesizes.h /usr/arm-linux-gnueabihf/include/bits/time64.h /usr/arm-linux-gnueabihf/include/bits/types/__fpos_t.h /usr/arm-linux-gnueabihf/include/bits/types/__mbstate_t.h /usr/arm-linux-gnueabihf/include/bits/types/__fpos64_t.h /usr/arm-linux-gnueabihf/include/bits/types/__FILE.h /usr/arm-linux-gnueabihf/include/bits/types/FILE.h /usr/arm-linux-gnueabihf/include/bits/types/struct_FILE.h /usr/arm-linux-gnueabihf/include/bits/stdio_lim.h /usr/arm-linux-gnueabihf/include/bits/sys_errlist.h /usr/arm-linux-gnueabihf/include/bits/stdio.h /usr/arm-linux-gnueabihf/include/bits/stdio2.h /usr/lib/gcc-cross/arm-linux-gnueabihf/9/include/stdint.h /usr/arm-linux-gnueabihf/include/stdint.h /usr/arm-linux-gnueabihf/include/bits/wchar.h /usr/arm-linux-gnueabihf/include/bits/stdint-intn.h /usr/arm-linux-gnueabihf/include/bits/stdint-uintn.h /usr/arm-linux-gnueabihf/include/time.h /usr/arm-linux-gnueabihf/include/bits/time.h /usr/arm-linux-gnueabihf/include/bits/types/clock_t.h /usr/arm-linux-gnueabihf/include/bits/types/time_t.h /usr/arm-linux-gnueabihf/include/bits/types/struct_tm.h /usr/arm-linux-gnueabihf/include/bits/types/struct_timespec.h /usr/arm-linux-gnueabihf/include/bits/endian.h /usr/arm-linux-gnueabihf/include/bits/endianness.h /usr/arm-linux-gnueabihf/include/bits/types/clockid_t.h /usr/arm-linux-gnueabihf/include/bits/types/timer_t.h /usr/arm-linux-gnueabihf/include/bits/types/struct_itimerspec.h /usr/arm-linux-gnueabihf/include/unistd.h /usr/arm-linux-gnueabihf/include/bits/posix_opt.h /usr/arm-linux-gnueabihf/include/bits/environments.h /usr/arm-linux-gnueabihf/include/bits/confname.h /usr/arm-linux-gnueabihf/include/bits/getopt_posix.h /usr/arm-linux-gnueabihf/include/bits/getopt_core.h /usr/arm-linux-gnueabihf/include/bits/unistd.h /usr/arm-linux-gnueabihf/include/bits/unistd_ext.h mzapo_parlcd.h mzapo_phys.h /usr/arm-linux-gnueabihf/include/sys/types.h /usr/arm-linux-gnueabihf/include/bits/pthreadtypes.h /usr/arm-linux-gnueabihf/include/bits/thread-shared-types.h /usr/arm-linux-gnueabihf/include/bits/pthreadtypes-arch.h /usr/arm-linux-gnueabihf/include/bits/struct_mutex.h /usr/arm-linux-gnueabihf/include/bits/struct_rwlock.h mzapo_regs.h serialize_lock.h snake_head.h movement.h /usr/lib/gcc-cross/arm-linux-gnueabihf/9/include/stdbool.h mainmenu.h fruit.h drawing.h knob_parsing.h
+snake.o: snake.c snake.c /usr/arm-linux-gnueabihf/include/stdc-predef.h /usr/arm-linux-gnueabihf/include/stdlib.h /usr/arm-linux-gnueabihf/include/bits/libc-header-start.h /usr/arm-linux-gnueabihf/include/features.h /usr/arm-linux-gnueabihf/include/sys/cdefs.h /usr/arm-linux-gnueabihf/include/bits/wordsize.h /usr/arm-linux-gnueabihf/include/bits/long-double.h /usr/arm-linux-gnueabihf/include/gnu/stubs.h /usr/arm-linux-gnueabihf/include/gnu/stubs-hard.h /usr/lib/gcc-cross/arm-linux-gnueabihf/9/include/stddef.h /usr/arm-linux-gnueabihf/include/bits/floatn.h /usr/arm-linux-gnueabihf/include/bits/floatn-common.h /usr/arm-linux-gnueabihf/include/bits/stdlib-bsearch.h /usr/arm-linux-gnueabihf/include/bits/stdlib-float.h /usr/arm-linux-gnueabihf/include/bits/stdlib.h /usr/arm-linux-gnueabihf/include/stdio.h /usr/lib/gcc-cross/arm-linux-gnueabihf/9/include/stdarg.h /usr/arm-linux-gnueabihf/include/bits/types.h /usr/arm-linux-gnueabihf/include/bits/timesize.h /usr/arm-linux-gnueabihf/include/bits/typesizes.h /usr/arm-linux-gnueabihf/include/bits/time64.h /usr/arm-linux-gnueabihf/include/bits/types/__fpos_t.h /usr/arm-linux-gnueabihf/include/bits/types/__mbstate_t.h /usr/arm-linux-gnueabihf/include/bits/types/__fpos64_t.h /usr/arm-linux-gnueabihf/include/bits/types/__FILE.h /usr/arm-linux-gnueabihf/include/bits/types/FILE.h /usr/arm-linux-gnueabihf/include/bits/types/struct_FILE.h /usr/arm-linux-gnueabihf/include/bits/stdio_lim.h /usr/arm-linux-gnueabihf/include/bits/sys_errlist.h /usr/arm-linux-gnueabihf/include/bits/stdio.h /usr/arm-linux-gnueabihf/include/bits/stdio2.h /usr/lib/gcc-cross/arm-linux-gnueabihf/9/include/stdint.h /usr/arm-linux-gnueabihf/include/stdint.h /usr/arm-linux-gnueabihf/include/bits/wchar.h /usr/arm-linux-gnueabihf/include/bits/stdint-intn.h /usr/arm-linux-gnueabihf/include/bits/stdint-uintn.h /usr/arm-linux-gnueabihf/include/time.h /usr/arm-linux-gnueabihf/include/bits/time.h /usr/arm-linux-gnueabihf/include/bits/types/clock_t.h /usr/arm-linux-gnueabihf/include/bits/types/time_t.h /usr/arm-linux-gnueabihf/include/bits/types/struct_tm.h /usr/arm-linux-gnueabihf/include/bits/types/struct_timespec.h /usr/arm-linux-gnueabihf/include/bits/endian.h /usr/arm-linux-gnueabihf/include/bits/endianness.h /usr/arm-linux-gnueabihf/include/bits/types/clockid_t.h /usr/arm-linux-gnueabihf/include/bits/types/timer_t.h /usr/arm-linux-gnueabihf/include/bits/types/struct_itimerspec.h /usr/arm-linux-gnueabihf/include/unistd.h /usr/arm-linux-gnueabihf/include/bits/posix_opt.h /usr/arm-linux-gnueabihf/include/bits/environments.h /usr/arm-linux-gnueabihf/include/bits/confname.h /usr/arm-linux-gnueabihf/include/bits/getopt_posix.h /usr/arm-linux-gnueabihf/include/bits/getopt_core.h /usr/arm-linux-gnueabihf/include/bits/unistd.h /usr/arm-linux-gnueabihf/include/bits/unistd_ext.h mzapo_parlcd.h mzapo_phys.h /usr/arm-linux-gnueabihf/include/sys/types.h /usr/arm-linux-gnueabihf/include/bits/pthreadtypes.h /usr/arm-linux-gnueabihf/include/bits/thread-shared-types.h /usr/arm-linux-gnueabihf/include/bits/pthreadtypes-arch.h /usr/arm-linux-gnueabihf/include/bits/struct_mutex.h /usr/arm-linux-gnueabihf/include/bits/struct_rwlock.h mzapo_regs.h serialize_lock.h snake_head.h movement.h /usr/lib/gcc-cross/arm-linux-gnueabihf/9/include/stdbool.h mainmenu.h fruit.h drawing.h knob_parsing.h speed_menu.h
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: 'snake'
-#  Last modified 2022-05-22 00:25:46.9329972
+#  Last modified 2022-05-22 02:45:53.0429972
 #  File has been updated.
 #  Successfully updated.
 #  recipe to execute (from 'Makefile', line 43):
@@ -965,7 +979,6 @@ run: copy-executable snake
 
 clean:
 #  Implicit rule search has not been done.
- 
 #  Modification time never checked.
 #  File has not been updated.
 #  recipe to execute (from 'Makefile', line 69):
@@ -988,7 +1001,7 @@ clean:
 # Not a target:
 fruit.h:
 #  Implicit rule search has been done.
-#  Last modified 2022-05-21 15:06:24.034743
+#  Last modified 2022-05-22 02:33:47.0529972
 #  File has been updated.
 #  Successfully updated.
 
@@ -1035,6 +1048,13 @@ knob_parsing.c:
 #  Successfully updated.
 
 # Not a target:
+speed_menu.h:
+#  Implicit rule search has been done.
+#  Last modified 2022-05-22 02:36:57.2529972
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
 /usr/arm-linux-gnueabihf/include/bits/struct_mutex.h:
 #  Implicit rule search has been done.
 #  Last modified 2022-04-21 04:36:55
@@ -1058,6 +1078,7 @@ knob_parsing.c:
 # Not a target:
 mzapo_phys.c:
 #  Implicit rule search has been done.
+ 
 #  Last modified 2022-05-03 17:29:11.4609738
 #  File has been updated.
 #  Successfully updated.
@@ -1086,7 +1107,7 @@ mzapo_phys.c:
 movement.o: movement.c movement.c /usr/arm-linux-gnueabihf/include/stdc-predef.h snake_head.h /usr/arm-linux-gnueabihf/include/stdio.h /usr/arm-linux-gnueabihf/include/bits/libc-header-start.h /usr/arm-linux-gnueabihf/include/features.h /usr/arm-linux-gnueabihf/include/sys/cdefs.h /usr/arm-linux-gnueabihf/include/bits/wordsize.h /usr/arm-linux-gnueabihf/include/bits/long-double.h /usr/arm-linux-gnueabihf/include/gnu/stubs.h /usr/arm-linux-gnueabihf/include/gnu/stubs-hard.h /usr/lib/gcc-cross/arm-linux-gnueabihf/9/include/stddef.h /usr/lib/gcc-cross/arm-linux-gnueabihf/9/include/stdarg.h /usr/arm-linux-gnueabihf/include/bits/types.h /usr/arm-linux-gnueabihf/include/bits/timesize.h /usr/arm-linux-gnueabihf/include/bits/typesizes.h /usr/arm-linux-gnueabihf/include/bits/time64.h /usr/arm-linux-gnueabihf/include/bits/types/__fpos_t.h /usr/arm-linux-gnueabihf/include/bits/types/__mbstate_t.h /usr/arm-linux-gnueabihf/include/bits/types/__fpos64_t.h /usr/arm-linux-gnueabihf/include/bits/types/__FILE.h /usr/arm-linux-gnueabihf/include/bits/types/FILE.h /usr/arm-linux-gnueabihf/include/bits/types/struct_FILE.h /usr/arm-linux-gnueabihf/include/bits/stdio_lim.h /usr/arm-linux-gnueabihf/include/bits/sys_errlist.h /usr/arm-linux-gnueabihf/include/bits/stdio.h /usr/arm-linux-gnueabihf/include/bits/stdio2.h /usr/lib/gcc-cross/arm-linux-gnueabihf/9/include/stdbool.h
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: 'movement'
-#  Last modified 2022-05-22 00:25:47.2229972
+#  Last modified 2022-05-22 02:45:53.3429972
 #  File has been updated.
 #  Successfully updated.
 #  recipe to execute (from 'Makefile', line 43):
@@ -1204,11 +1225,10 @@ mzapo_phys.h:
 #  File has been updated.
 #  Successfully updated.
 
- 
 serialize_lock.o: serialize_lock.c serialize_lock.c /usr/arm-linux-gnueabihf/include/stdc-predef.h /usr/arm-linux-gnueabihf/include/fcntl.h /usr/arm-linux-gnueabihf/include/features.h /usr/arm-linux-gnueabihf/include/sys/cdefs.h /usr/arm-linux-gnueabihf/include/bits/wordsize.h /usr/arm-linux-gnueabihf/include/bits/long-double.h /usr/arm-linux-gnueabihf/include/gnu/stubs.h /usr/arm-linux-gnueabihf/include/gnu/stubs-hard.h /usr/arm-linux-gnueabihf/include/bits/types.h /usr/arm-linux-gnueabihf/include/bits/timesize.h /usr/arm-linux-gnueabihf/include/bits/typesizes.h /usr/arm-linux-gnueabihf/include/bits/time64.h /usr/arm-linux-gnueabihf/include/bits/fcntl.h /usr/arm-linux-gnueabihf/include/bits/fcntl-linux.h /usr/arm-linux-gnueabihf/include/bits/types/struct_timespec.h /usr/arm-linux-gnueabihf/include/bits/endian.h /usr/arm-linux-gnueabihf/include/bits/endianness.h /usr/arm-linux-gnueabihf/include/bits/stat.h /usr/arm-linux-gnueabihf/include/bits/fcntl2.h /usr/arm-linux-gnueabihf/include/unistd.h /usr/arm-linux-gnueabihf/include/bits/posix_opt.h /usr/arm-linux-gnueabihf/include/bits/environments.h /usr/lib/gcc-cross/arm-linux-gnueabihf/9/include/stddef.h /usr/arm-linux-gnueabihf/include/bits/confname.h /usr/arm-linux-gnueabihf/include/bits/getopt_posix.h /usr/arm-linux-gnueabihf/include/bits/getopt_core.h /usr/arm-linux-gnueabihf/include/bits/unistd.h /usr/arm-linux-gnueabihf/include/bits/unistd_ext.h /usr/arm-linux-gnueabihf/include/errno.h /usr/arm-linux-gnueabihf/include/bits/errno.h /usr/arm-linux-gnueabihf/include/linux/errno.h /usr/arm-linux-gnueabihf/include/asm/errno.h /usr/arm-linux-gnueabihf/include/asm-generic/errno.h /usr/arm-linux-gnueabihf/include/asm-generic/errno-base.h serialize_lock.h /usr/lib/gcc-cross/arm-linux-gnueabihf/9/include/stdint.h /usr/arm-linux-gnueabihf/include/stdint.h /usr/arm-linux-gnueabihf/include/bits/libc-header-start.h /usr/arm-linux-gnueabihf/include/bits/wchar.h /usr/arm-linux-gnueabihf/include/bits/stdint-intn.h /usr/arm-linux-gnueabihf/include/bits/stdint-uintn.h
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: 'serialize_lock'
-#  Last modified 2022-05-22 00:25:47.0529972
+#  Last modified 2022-05-22 02:45:53.1629972
 #  File has been updated.
 #  Successfully updated.
 #  recipe to execute (from 'Makefile', line 43):
@@ -1229,19 +1249,19 @@ serialize_lock.o: serialize_lock.c serialize_lock.c /usr/arm-linux-gnueabihf/inc
 #  Successfully updated.
 
 # files hash-table stats:
-# Load=142/1024=14%, Rehash=0, Collisions=61/674=9%
+# Load=145/1024=14%, Rehash=0, Collisions=64/713=9%
 # VPATH Search Paths
 
 # No 'vpath' search paths.
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 162 / storage = 5719 B / avg = 35 B
-# current buf: size = 8162 B / used = 5719 B / count = 162 / avg = 35 B
+# strcache buffers: 1 (0) / strings = 166 / storage = 5769 B / avg = 34 B
+# current buf: size = 8162 B / used = 5769 B / count = 166 / avg = 34 B
 
-# strcache performance: lookups = 605 / hit rate = 73%
+# strcache performance: lookups = 646 / hit rate = 74%
 # hash-table stats:
-# Load=162/8192=2%, Rehash=0, Collisions=1/605=0%
-# Finished Make data base on Sun May 22 00:26:18 2022
+# Load=166/8192=2%, Rehash=0, Collisions=1/646=0%
+# Finished Make data base on Sun May 22 02:46:06 2022
 
  

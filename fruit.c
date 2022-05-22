@@ -111,7 +111,6 @@ void fruit_get(unsigned int* red_score, unsigned int* blue_score, unsigned char*
             *(blue_score) = 3;
         } else {
             *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = *(blue_score);
-            int temp = *(blue_score);
             *(blue_score)<<=1;
             *(blue_score) += 0x1;
             *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB2_o) = 0x0000FF00;
@@ -140,7 +139,6 @@ void fruit_get(unsigned int* red_score, unsigned int* blue_score, unsigned char*
         *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = *(red_score);
     } else {
         *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = *(red_score);
-        int temp = *(red_score);
         *(red_score)<<=1;
         *(red_score) += 0x1;
         *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB1_o) = 0x0000FF00;

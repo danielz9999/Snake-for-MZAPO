@@ -6,6 +6,8 @@ void draw_square(int x, int y, int scale, unsigned short** buffer, unsigned shor
         drawing_color = 0xF800;
     } else if (color == 2) {
         drawing_color = 0x001F ;
+    } else if (color == 3) {
+        drawing_color = 0x07E0;
     }
     
 

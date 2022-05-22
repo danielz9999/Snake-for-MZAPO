@@ -1,6 +1,8 @@
+#define _POSIX_C_SOURCE 200112L
 #include <stdio.h>
 #include <stdbool.h>
 #include <stdlib.h>
+#include <time.h>
 
 #include "drawing.h"
 #include "mzapo_regs.h"
@@ -8,7 +10,7 @@
 
 
 
-bool mainmenu(unsigned char* mem_base, unsigned char* parlcd_mem_base) {
+bool mainmenu(unsigned char* mem_base, unsigned char* parlcd_mem_base, struct timespec* clock) {
  draw_first_screen(parlcd_mem_base);
  unsigned int knob_values = *(volatile uint32_t*)(mem_base + SPILED_REG_KNOBS_8BIT_o);
  unsigned int red_knob = (knob_values>>16) & 0xFF;
@@ -16,23 +18,25 @@ bool mainmenu(unsigned char* mem_base, unsigned char* parlcd_mem_base) {
  int red_button = 0;
  int blue_button = 0;
  while (1) {
-    knob_values = *(volatile uint32_t*)(mem_base + SPILED_REG_KNOBS_8BIT_o);
-    red_button =  (knob_values>>26) & 1;
-    blue_button = (knob_values>>24) & 1;
+    unsigned int new_knob_values = *(volatile uint32_t*)(mem_base + SPILED_REG_KNOBS_8BIT_o);
+    unsigned int new_red_knob = (new_knob_values>>16) & 0xFF;
+    unsigned int new_blue_knob = new_knob_values & 0xFF; 
+    red_button =  (new_knob_values>>26) & 1;
+    blue_button = (new_knob_values>>24) & 1;
     if (red_button) {
         return false;
-    } else if ( blue_button) {
+    } else if (blue_button) {
         return true;
     }
-    int new_red_knob = (knob_values>>16) & 0xFF;
-    int new_blue_knob = knob_values & 0xFF;
     if (abs(red_knob - new_red_knob) > 1) {
         return false;
     } else if (abs(blue_knob - new_blue_knob) > 1) {
         return true;
     }
+
     red_knob = new_red_knob;
     blue_knob = new_blue_knob;
+    clock_nanosleep(CLOCK_MONOTONIC, 0, clock, NULL);
  }
 }
 

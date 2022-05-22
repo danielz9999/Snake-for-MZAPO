@@ -4,6 +4,7 @@ The color parameter decides which color to use,
 0 - WHITE
 1 - RED
 2 - BLUE
+3 - GREEN
 */
 #ifndef DRAWING_H
 #define DRAWING_H
