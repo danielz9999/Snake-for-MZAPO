@@ -71,7 +71,6 @@ int main(int argc, char *argv[]) {
   unsigned char* mem_base = map_phys_address(SPILED_REG_BASE_PHYS, SPILED_REG_SIZE, 0);
   unsigned char* parlcd_mem_base = map_phys_address(PARLCD_REG_BASE_PHYS, PARLCD_REG_SIZE, 0);
   if (mem_base == NULL || parlcd_mem_base == NULL) {
-    printf(stderr, "Error mapping memmory, exiting");
     exit(1);
   }
   //Reset LED line and RGB diodes
