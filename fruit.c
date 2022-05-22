@@ -64,8 +64,7 @@ void fruit_get(unsigned int* red_score, unsigned int* blue_score, unsigned char*
   //If two player mode is enabled, each player takes one half of the led display and one RGB diode
   if (is_two_players) {
       if (player == 1) {
-        if ((*(red_score) & 0x0000FFFF) > 0) {
-            clock->tv_nsec *= 10;
+        if (((*(red_score) >> 1) & 0x0000FFFF) > 0) {
             *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB1_o) = 0x00FFFF00;
 
             for (int i = 0; i < 8; i++) {
@@ -78,21 +77,20 @@ void fruit_get(unsigned int* red_score, unsigned int* blue_score, unsigned char*
                 *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = 0x88888888;
                 clock_nanosleep(CLOCK_MONOTONIC, 0 , clock, NULL);
             }
-            clock->tv_nsec /= 10;
             *(red_score) = 0x80000000;
-            *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = *(red_score);
-            *(red_score)>>=1;
-            *(red_score) += 0x80000000;
+            *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = *(red_score) | *(blue_score);
         } else {
-            *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = *(red_score);
-            *(red_score)>>=1;
-            *(red_score) += 0x80000000;
+            if (*(red_score) == 0) {
+                *(red_score) = 0x80000000;
+            } else {
+                *(red_score)>>=1;
+                *(red_score) += 0x80000000;
+            }
+            *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) =  *(red_score) | *(blue_score);
             *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB1_o) = 0x0000FF00;
-
             } 
       } else if (player == 2) {
-          if (*(blue_score) >= 0x0000FFFF) {
-            clock->tv_nsec *= 10;
+          if (((*(blue_score) << 1) & 0xFFFF0000) > 0) {
             *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB2_o) = 0x00FFFF00;
 
             for (int i = 0; i < 8; i++) {
@@ -105,22 +103,23 @@ void fruit_get(unsigned int* red_score, unsigned int* blue_score, unsigned char*
                 *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = 0x88888888;
                 clock_nanosleep(CLOCK_MONOTONIC, 0 , clock, NULL);
             }
-            clock->tv_nsec /= 10;
             *(blue_score) = 1;
-            *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = *(blue_score);
-            *(blue_score) = 3;
-        } else {
-            *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = *(blue_score);
-            *(blue_score)<<=1;
-            *(blue_score) += 0x1;
-            *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB2_o) = 0x0000FF00;
+            *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = *(blue_score) | *(red_score);
 
+        } else {
+            if (*(blue_score) == 0) {
+                *(blue_score) = 1;
+            } else {
+                *(blue_score)<<=1;
+                *(blue_score) += 0x1;
+            }
+            *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = *(blue_score) | *(red_score);
+            *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB2_o) = 0x0000FF00;
             } 
       }
   } else {
     //If score reached max, celebrate, then reset score
     if (*(red_score) >= 0xFFFFFFFF) {
-        clock->tv_nsec *= 10;
         *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB1_o) = 0x00FFFF00;
         *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB2_o) = 0x00FFFF00; 
 
@@ -134,13 +133,16 @@ void fruit_get(unsigned int* red_score, unsigned int* blue_score, unsigned char*
             *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = 0x88888888;
             clock_nanosleep(CLOCK_MONOTONIC, 0 , clock, NULL);
         }
-        clock->tv_nsec /= 10;
         *(red_score) = 1;
         *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = *(red_score);
     } else {
-        *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = *(red_score);
-        *(red_score)<<=1;
-        *(red_score) += 0x1;
+        if (*(red_score) == 0) {
+            *(red_score) = 1;
+        } else {
+            *(red_score)<<=1;
+            *(red_score) += 0x1;
+        }
+        *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = *(red_score); 
         *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB1_o) = 0x0000FF00;
         *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB2_o) = 0x0000FF00; 
         }

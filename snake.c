@@ -18,7 +18,6 @@
 #include "mzapo_parlcd.h"
 #include "mzapo_phys.h"
 #include "mzapo_regs.h"
-#include "serialize_lock.h"
 #include "snake_head.h"
 #include "movement.h"
 #include "mainmenu.h"
@@ -26,19 +25,15 @@
 #include "drawing.h"
 #include "knob_parsing.h"
 #include "speed_menu.h"
+#include "game_over.h"
 
 #define FRUIT 10
 #define SNAKE_SIZE 5
 
-unsigned short graphicDecode(char input);
-void draw(unsigned char** playspace, unsigned char* parlcd_mem_base);
-void game_over(unsigned char* mem_base, struct timespec* clock);
-
-
 int main(int argc, char *argv[]) {
   //Initializing variables
-  unsigned int red_score = 1;
-  unsigned int blue_score = 1;
+  unsigned int red_score = 0;
+  unsigned int blue_score = 0;
   int even_offset = 0;
   int rgb_duration = 0;
   char red_direction;
@@ -70,11 +65,11 @@ int main(int argc, char *argv[]) {
   fruit_coordinates.y = 160;
   srand(time(NULL));
   generate_fruit(playspace, &fruit_coordinates.x, &fruit_coordinates.y, SNAKE_SIZE);
-
+  
   struct timespec clock_spec;
   clock_spec.tv_sec = 0;
   clock_spec.tv_nsec = 10 * 1000000;
-  
+
   //mapping
   unsigned char* mem_base = map_phys_address(SPILED_REG_BASE_PHYS, SPILED_REG_SIZE, 0);
   unsigned char* parlcd_mem_base = map_phys_address(PARLCD_REG_BASE_PHYS, PARLCD_REG_SIZE, 0);
@@ -82,6 +77,10 @@ int main(int argc, char *argv[]) {
     printf(stderr, "Error mapping memmory, exiting");
     exit(1);
   }
+  //Reset LED line and RGB diodes
+  *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB1_o) = 0x00000000;
+  *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB2_o) = 0x00000000;
+  *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = 0x00000000;
   //Initialise knob values
   unsigned int knob_values = *(volatile uint32_t*)(mem_base + SPILED_REG_KNOBS_8BIT_o);
   unsigned int red_knob = (knob_values>>16) & 0xFF;
@@ -97,8 +96,6 @@ int main(int argc, char *argv[]) {
     clock_spec.tv_nsec /= 10;
   }
   if (two_players) {
-      red_score = 0x80000000;
-
       head_one.x = 160;
       tail_one.x = 160;
 
@@ -137,6 +134,16 @@ int main(int argc, char *argv[]) {
     unsigned int new_knob_values = *(volatile uint32_t*)(mem_base + SPILED_REG_KNOBS_8BIT_o);
     unsigned int new_red_knob = (new_knob_values>>16) & 0xFF;
     unsigned int new_blue_knob = new_knob_values & 0xFF; 
+    unsigned int green_button = (new_knob_values>>25) & 1;
+    //The green button pauses the game for a few seconds
+    if (green_button) {
+      long int temp = clock_spec.tv_nsec;
+      clock_spec.tv_nsec = 100*1000000;
+      for (int i = 0; i < 1000; i++) {
+        clock_nanosleep(CLOCK_MONOTONIC, 0, &clock_spec, NULL);
+      }
+      clock_spec.tv_nsec = temp;
+    }
     if (!has_red_turned) {
       red_direction = parse_knob(new_red_knob, red_knob, &has_red_turned, red_direction);
     } else {
@@ -149,14 +156,17 @@ int main(int argc, char *argv[]) {
     }
     red_knob = new_red_knob;
     blue_knob = new_blue_knob;
-
+    //Move snakes
     red_game_over = movement(playspace, &red_ate_fruit, &head_one, &tail_one, red_direction, SNAKE_SIZE);
     if (two_players) {
       blue_game_over = movement(playspace, &blue_ate_fruit, &head_two, &tail_two, blue_direction, SNAKE_SIZE);
     }
+    //Trigger game over
     if (red_game_over || blue_game_over) {
-      game_over(mem_base, &clock_spec);
+      game_over(mem_base, parlcd_mem_base, two_players, red_game_over, blue_game_over, playspace,
+               &tail_one, &tail_two, &head_one, &head_two);
     }
+    //Increase score on fruit pickup
     if (red_ate_fruit) {
       fruit_get(&red_score, &blue_score, mem_base ,&clock_spec, two_players, 1);
       generate_fruit(playspace, &fruit_coordinates.x, &fruit_coordinates.y, SNAKE_SIZE);
@@ -180,39 +190,4 @@ int main(int argc, char *argv[]) {
     }
   }
   return 0;
-}
-//Decodes the logic in the playspace array into values which can be passed to the LCD display
-unsigned short graphicDecode(char input) {
-  if (input > 0 && input != FRUIT) {
-    return 0xFFFF;
-  } else if (input == FRUIT) {
-    return 0xF800;
-  } else {
-    return 0x0;
-  }
-  
-}
-//Displays the current state of the game to the LCD display
-//Loops through x coordinate first, since
-void draw(unsigned char** playspace, unsigned char* parlcd_mem_base) {
-  *(volatile uint16_t*)(parlcd_mem_base + PARLCD_REG_CMD_o) = 0x2c;
-   for (int i = 0; i < 320; i++) {
-    for (int j = 0; j < 480; j++) {
-        *(volatile uint16_t*)(parlcd_mem_base + PARLCD_REG_DATA_o) = graphicDecode(playspace[j][i]);
-    }
-  }
-}
-void game_over(unsigned char* mem_base, struct timespec* clock) {
-    *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB1_o) = 0x00FF0000;
-    *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB2_o) = 0x00FF0000;
-
-    *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = 0xFFFFFFFF;
-    clock->tv_nsec = 300 * 1000 * 1000;
-    for (int i = 0; i < 10; i++) {
-      clock_nanosleep(CLOCK_MONOTONIC, 0, clock, NULL);
-    }
-    *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB1_o) = 0x00000000;
-    *(volatile uint32_t*)(mem_base + SPILED_REG_LED_RGB2_o) = 0x00000000;
-    *(volatile uint32_t*)(mem_base + SPILED_REG_LED_LINE_o) = 0x00000000;
-    exit(0);
 }

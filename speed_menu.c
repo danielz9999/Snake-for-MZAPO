@@ -12,7 +12,7 @@
 int speed_menu(unsigned char* mem_base, unsigned char* parlcd_mem_base, struct timespec* clock) {
     draw_screen(parlcd_mem_base);
     //A pause to not autoaccept the same input as was on the mainmenu screen
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < 25; i++) {
         clock_nanosleep(CLOCK_MONOTONIC, 0, clock, NULL);
     }
     unsigned int knob_values = *(volatile uint32_t*)(mem_base + SPILED_REG_KNOBS_8BIT_o);
