@@ -1,6 +1,0 @@
-make --dry-run --keep-going --print-directory
-make: Entering directory '/home/dan/apo/sem/mz_apo_zampach_stanke'
-arm-linux-gnueabihf-gcc -g -std=gnu99 -O1 -Wall -I . -o game_over.o -c game_over.c
-arm-linux-gnueabihf-gcc -lrt -lpthread -g -std=gnu99 -O1 -Wall -I . -L. snake.o mzapo_phys.o mzapo_parlcd.o serialize_lock.o mainmenu.o fruit.o movement.o drawing.o knob_parsing.o speed_menu.o game_over.o -o snake -lm
-make: Leaving directory '/home/dan/apo/sem/mz_apo_zampach_stanke'
- 
