@@ -2,6 +2,8 @@ snake
 Application developed by Daniel Žampach and Petr Stanke
 for the MicroZed based MZ_APO board during the 2022 summer semester.
 
+!! This program will not work unless used on the MZ_APO board !!
+
 The developement of this project is logged using git on GitLab
 GitLab link: https://gitlab.fel.cvut.cz/stankpe4/mz_apo_zampach_stanke
 The main branch for the project is "two-players"
